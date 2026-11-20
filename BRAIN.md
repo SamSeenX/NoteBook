@@ -15,7 +15,7 @@
 ## 3. UI/UX Architecture & Column Alignment
 - **Independent Full-Height Columns**: Sidebar and workspace are decoupled full-height columns, eliminating window-wide header shifts.
 - **Sidebar State Persistence**: Sidebar defaults to collapsed and stores user toggle preference in `localStorage.notes_sidebar_open`.
-- **Keyboard-Centric Navigation**: `Ctrl+K` / `Cmd+K` automatically expands the sidebar and focuses the search input with instant query selection.
+- **Keyboard-Centric Navigation**: `Ctrl+K` / `Cmd+K` automatically expands the sidebar and focuses the search input with instant query selection, while `Escape` inside search collapses the sidebar panel.
 - **Unified Toolbar Controls**: Format switches (`Plain | MD | HTML`) sit directly beside the Zen mode button and View Mode controls inside the workspace toolbar.
 - **Anchored Workspace Header**: The hamburger sidebar toggle is anchored to the top-left of the workspace header, keeping controls stable during collapse and expand.
 - **Fluid Canvas Stabilization**: Smooth CSS transition easing (`transition: max-width, padding`) prevents jumping when toggling between side-by-side and expanded writing views.

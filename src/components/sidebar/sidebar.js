@@ -28,11 +28,12 @@ export class SidebarComponent {
 
     this.searchInput.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        e.preventDefault();
         if (this.searchInput.value) {
           this.searchInput.value = '';
-          store.setState({ searchQuery: '' });
         }
         this.searchInput.blur();
+        store.setState({ searchQuery: '', isSidebarOpen: false });
       }
     });
 
