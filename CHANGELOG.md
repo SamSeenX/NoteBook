@@ -4,6 +4,15 @@ All notable changes to the Notes PWA will be documented here.
 
 ## [Unreleased]
 ### Added
+- Complete UI/UX redesign with craft-style borderless document canvas
+- Unified segmented pill control for View Mode (Edit, Split, Preview)
+- Refined sidebar note cards with left active accent indicators and subtle tag badges
+- Warm and balanced color palette for both light and dark themes
+- Live pulsing auto-save indicator dot in the status bar
+- Constrained 740px reading line measure for optimal reading comfort
+
+## [1.1.0] - 2026-11-20
+### Added
 - Inline `#tags` parsing and horizontal filter pill bar in sidebar
 - Soft-delete Trash workflow with single-note restore, permanent deletion, and empty trash
 - Zen focus mode with fullscreen distraction-free column (`Cmd/Ctrl + Shift + F`)

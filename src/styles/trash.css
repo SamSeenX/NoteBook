@@ -1,5 +1,5 @@
 .sidebar-footer {
-  padding: var(--space-xs) var(--space-sm);
+  padding: 8px 10px;
   border-top: 1px solid var(--border-color);
   background-color: var(--bg-secondary);
   display: flex;
@@ -10,15 +10,16 @@
 .trash-toggle-btn {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-xs);
-  font-size: 0.85rem;
+  gap: 6px;
+  font-size: 0.82rem;
   color: var(--text-secondary);
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
+  padding: 5px 8px;
+  border-radius: var(--radius-xs);
+  min-height: 30px;
 }
 
 .trash-toggle-btn:hover {
-  background-color: var(--bg-tertiary);
+  background-color: var(--bg-hover);
   color: var(--text-primary);
 }
 
@@ -29,10 +30,11 @@
 }
 
 .trash-banner {
-  padding: var(--space-xs) var(--space-sm);
+  padding: 6px 10px;
   background-color: var(--danger-subtle);
   color: var(--danger-color);
   font-size: 0.8rem;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,12 +42,13 @@
 }
 
 .btn-empty-trash {
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   padding: 3px 8px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
   background: var(--danger-color);
   color: #ffffff;
   font-weight: 600;
+  min-height: 26px;
 }
 
 .btn-empty-trash:hover {
