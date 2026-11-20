@@ -1,6 +1,7 @@
 import { store } from '../../core/store.js';
 import { eventBus } from '../../core/event-bus.js';
 import { idb } from '../../utils/idb.js';
+import { applyEditorFormat } from '../../utils/formatters.js';
 
 export class EditorComponent {
   constructor(container) {
@@ -107,11 +108,11 @@ export class EditorComponent {
 
   updateCounters() {
     const text = this.bodyTextarea.value.trim();
-    const words = text ? text.split(/\s+/).length : 0;
+    const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
     const chars = text.length;
-    const readMin = Math.ceil(words / 200);
+    const readMin = Math.max(1, Math.ceil(words / 200));
 
-    if (this.wordCountEl) this.wordCountEl.textContent = `${words} words`;
+    if (this.wordCountEl) this.wordCountEl.textContent = `${words} ${words === 1 ? 'word' : 'words'}`;
     if (this.charCountEl) this.charCountEl.textContent = `${chars} chars`;
     if (this.readingTimeEl) this.readingTimeEl.textContent = `${readMin} min read`;
   }
@@ -122,58 +123,7 @@ export class EditorComponent {
   }
 
   applyFormat(format) {
-    const el = this.bodyTextarea;
-    const start = el.selectionStart;
-    const end = el.selectionEnd;
-    const selected = el.value.substring(start, end);
-    let replacement = '';
-    let cursorOffset = 0;
-
-    switch (format) {
-      case 'bold':
-        replacement = `**${selected || 'bold text'}**`;
-        cursorOffset = selected ? replacement.length : 2;
-        break;
-      case 'italic':
-        replacement = `*${selected || 'italic text'}*`;
-        cursorOffset = selected ? replacement.length : 1;
-        break;
-      case 'link':
-        replacement = `[${selected || 'link text'}](https://)`;
-        cursorOffset = selected ? replacement.length - 1 : 1;
-        break;
-      case 'h1':
-        replacement = `\n# ${selected || 'Heading 1'}\n`;
-        cursorOffset = replacement.length;
-        break;
-      case 'h2':
-        replacement = `\n## ${selected || 'Heading 2'}\n`;
-        cursorOffset = replacement.length;
-        break;
-      case 'list':
-        replacement = `\n- ${selected || 'List item'}`;
-        cursorOffset = replacement.length;
-        break;
-      case 'ordered-list':
-        replacement = `\n1. ${selected || 'List item'}`;
-        cursorOffset = replacement.length;
-        break;
-      case 'quote':
-        replacement = `\n> ${selected || 'Quote'}\n`;
-        cursorOffset = replacement.length;
-        break;
-      case 'code':
-        replacement = selected.includes('\n') ? `\n\`\`\`\n${selected}\n\`\`\`\n` : `\`${selected || 'code'}\``;
-        cursorOffset = replacement.length;
-        break;
-      default:
-        return;
-    }
-
-    el.setRangeText(replacement, start, end, 'select');
-    el.selectionStart = start + cursorOffset;
-    el.selectionEnd = start + cursorOffset;
-    el.focus();
+    applyEditorFormat(this.bodyTextarea, format);
     this.saveCurrentNote();
   }
 }

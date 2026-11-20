@@ -1,0 +1,89 @@
+/* Editorial Rendered Prose Styling */
+.preview-content {
+  font-family: var(--font-editor);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--text-primary);
+  word-wrap: break-word;
+}
+
+.preview-content h1 { font-size: 1.85rem; font-weight: 750; letter-spacing: -0.02em; margin: 1.4rem 0 0.5rem; }
+.preview-content h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.015em; margin: 1.2rem 0 0.4rem; padding-bottom: 0.2rem; border-bottom: 1px solid var(--border-color); }
+.preview-content h3 { font-size: 1.15rem; font-weight: 650; margin: 1rem 0 0.3rem; }
+.preview-content p { margin-bottom: 0.9rem; }
+.preview-content ul, .preview-content ol { padding-left: 1.5rem; margin-bottom: 0.9rem; }
+.preview-content li { margin-bottom: 0.25rem; }
+
+/* Interactive Checklists */
+.preview-content input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: var(--accent-color);
+  width: 1rem;
+  height: 1rem;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.preview-content blockquote {
+  border-left: 3px solid var(--accent-color);
+  padding: 8px 16px;
+  color: var(--text-secondary);
+  margin: 1rem 0;
+  background: var(--accent-subtle);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
+}
+
+.preview-content pre {
+  background: #181d28;
+  color: #f8fafc;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  margin: 1rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.preview-content code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--bg-tertiary);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  color: var(--text-primary);
+}
+
+.preview-content pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+/* Visual Multipage PDF Page Break */
+.pdf-page-break {
+  position: relative;
+  height: 1px;
+  margin: 2rem 0;
+  border-top: 2px dashed rgba(99, 102, 241, 0.45);
+  page-break-before: always;
+  break-before: page;
+}
+
+.pdf-page-break::after {
+  content: "Page Break";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-primary);
+  color: var(--accent-color);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 0.6rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+}

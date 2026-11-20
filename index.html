@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#2563eb" />
-  <meta name="description" content="Minimalist offline-first note-taking PWA with Markdown and Multipage PDF Export" />
+  <meta name="theme-color" content="#4f46e5" />
+  <title>Notes — Minimalist PWA</title>
   <link rel="icon" type="image/svg+xml" href="/icon.svg" />
   <link rel="manifest" href="/manifest.webmanifest" />
-  <title>Notes - Minimalist PWA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
 </head>
 <body data-view="split">
   <div id="app">
@@ -15,36 +17,51 @@
     <header class="app-header">
       <div class="brand-section">
         <button id="sidebar-toggle" class="icon-btn-sm" title="Toggle Sidebar" aria-label="Toggle Sidebar">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
-        <img src="/icon.svg" alt="Notes Logo" class="brand-logo" />
+        <div style="width:28px; height:28px; border-radius:8px; background:var(--accent-color); display:flex; align-items:center; justify-content:center; color:#fff; box-shadow:0 2px 4px rgba(79,70,229,0.3);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+        </div>
         <span class="brand-title">Notes</span>
+        <div style="display:flex; align-items:center; gap:5px; margin-left:4px;">
+          <span id="status-dot" class="status-dot"></span>
+          <span id="save-status" style="font-size:0.72rem; color:var(--text-muted);">Saved</span>
+        </div>
       </div>
 
+      <!-- Center Segmented View Switcher -->
+      <div class="segmented-control">
+        <button class="segmented-btn" data-cmd="view-edit" title="Editor Only">Edit</button>
+        <button class="segmented-btn is-active" data-cmd="view-split" title="Split View">Split</button>
+        <button class="segmented-btn" data-cmd="view-preview" title="Preview Only">Preview</button>
+      </div>
+
+      <!-- Right Header Actions -->
       <div class="header-actions">
-        <button id="export-backup-btn" class="icon-btn-sm" title="Backup JSON" aria-label="Backup JSON">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
+        <div class="segmented-control" style="margin-right:4px;">
+          <button data-format="plain" class="segmented-btn">Plain</button>
+          <button data-format="markdown" class="segmented-btn is-active">MD</button>
+          <button data-format="html" class="segmented-btn">HTML</button>
+        </div>
+        <button id="btn-font-cycle" class="toolbar-btn" style="font-weight:700; min-width:32px;" title="Switch Font (Sans/Serif/Mono)">Aa</button>
+        <button id="btn-export-menu" class="btn-primary" style="height:30px; padding:0 10px; font-size:0.78rem; gap:5px;" title="Export Note">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+          <span>Export</span>
         </button>
-        <label id="import-backup-label" class="icon-btn-sm" title="Restore JSON" aria-label="Restore JSON" style="cursor: pointer;">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line>
-          </svg>
-          <input type="file" id="import-backup-input" accept=".json" class="sr-only" />
-        </label>
         <button id="theme-toggle" class="icon-btn-sm" title="Toggle Theme" aria-label="Toggle Theme">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
         </button>
       </div>
     </header>
+
+    <!-- Export Dropdown Popover -->
+    <div id="export-dropdown" class="dropdown-menu">
+      <button id="action-export-pdf" class="dropdown-item"><span>Multipage PDF</span><span style="font-size:0.7rem; color:var(--text-muted);">.pdf</span></button>
+      <button id="action-export-md" class="dropdown-item"><span>Markdown File</span><span style="font-size:0.7rem; color:var(--text-muted);">.md</span></button>
+      <button id="action-export-html" class="dropdown-item"><span>HTML Document</span><span style="font-size:0.7rem; color:var(--text-muted);">.html</span></button>
+      <button id="action-export-txt" class="dropdown-item"><span>Plain Text</span><span style="font-size:0.7rem; color:var(--text-muted);">.txt</span></button>
+      <button id="action-copy" class="dropdown-item"><span>Copy to Clipboard</span><span style="font-size:0.7rem; color:var(--text-muted);">Copy</span></button>
+    </div>
 
     <!-- Main Section -->
     <div class="app-main">
@@ -54,10 +71,8 @@
       <aside id="sidebar" class="sidebar">
         <div class="sidebar-controls">
           <div class="search-wrapper">
-            <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="search" id="search-input" class="search-input" placeholder="Search notes..." autocomplete="off" />
+            <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="search" id="search-input" class="search-input" placeholder="Search notes... (Ctrl+K)" autocomplete="off" />
           </div>
 
           <div class="sort-row">
@@ -68,13 +83,13 @@
               <option value="title_asc">Title (A-Z)</option>
               <option value="title_desc">Title (Z-A)</option>
             </select>
-            <button id="new-note-btn" class="btn-primary" style="height: 32px; padding: 0 10px; font-size: 0.8rem;">+ New</button>
+            <button id="new-note-btn" class="btn-primary" style="height:30px; padding:0 10px; font-size:0.8rem;">+ New</button>
           </div>
         </div>
 
         <div id="tags-bar" class="tags-bar"></div>
 
-        <div id="trash-banner" class="trash-banner" style="display: none;">
+        <div id="trash-banner" class="trash-banner" style="display:none;">
           <span>Viewing Trash</span>
           <button id="empty-trash-btn" class="btn-empty-trash">Empty</button>
         </div>
@@ -83,12 +98,18 @@
 
         <div class="sidebar-footer">
           <button id="trash-toggle-btn" class="trash-toggle-btn" title="View Trash">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="3 6 5 6 21 6"></polyline>
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-            </svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
             <span>Trash</span>
           </button>
+          <div style="display:flex; align-items:center; gap:2px;">
+            <button id="export-backup-btn" class="icon-btn-sm" title="Backup JSON" aria-label="Backup JSON">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </button>
+            <label id="import-backup-label" class="icon-btn-sm" title="Restore JSON" aria-label="Restore JSON" style="cursor:pointer;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <input type="file" id="import-backup-input" accept=".json" class="sr-only" />
+            </label>
+          </div>
         </div>
       </aside>
 
@@ -96,44 +117,30 @@
       <main class="workspace">
         <button id="exit-zen-btn" class="exit-zen-btn" title="Exit Focus (Esc)">Exit Focus</button>
 
-        <!-- Toolbar -->
+        <!-- Formatting Toolbar -->
         <div id="toolbar" class="toolbar">
           <div class="toolbar-group">
+            <button class="toolbar-btn" data-cmd="h1" title="Heading 1"><strong>H1</strong></button>
+            <button class="toolbar-btn" data-cmd="h2" title="Heading 2"><strong>H2</strong></button>
+            <button class="toolbar-btn" data-cmd="h3" title="Heading 3"><strong>H3</strong></button>
+            <div class="divider"></div>
             <button class="toolbar-btn" data-cmd="bold" title="Bold (Ctrl+B)"><strong>B</strong></button>
             <button class="toolbar-btn" data-cmd="italic" title="Italic (Ctrl+I)"><em>I</em></button>
-            <button class="toolbar-btn" data-cmd="h1" title="Heading 1">H1</button>
-            <button class="toolbar-btn" data-cmd="h2" title="Heading 2">H2</button>
+            <button class="toolbar-btn" data-cmd="code" title="Code">&lt;&gt;</button>
+            <div class="divider"></div>
+            <button class="toolbar-btn" data-cmd="task" title="Checklist Item">☑</button>
             <button class="toolbar-btn" data-cmd="list" title="Bullet List">•</button>
             <button class="toolbar-btn" data-cmd="ordered-list" title="Numbered List">1.</button>
             <button class="toolbar-btn" data-cmd="quote" title="Quote">“</button>
-            <button class="toolbar-btn" data-cmd="code" title="Code">&lt;&gt;</button>
+            <div class="divider"></div>
+            <button class="toolbar-btn btn-pagebreak" data-cmd="pagebreak" title="Insert Page Break for PDF Export">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h3m3 0h6m3 0h3M6 5h12a1 1 0 011 1v3H5V6a1 1 0 011-1zm0 14h12a1 1 0 001-1v-3H5v3a1 1 0 001 1z"/></svg>
+              <span>Page Break</span>
+            </button>
           </div>
 
           <div class="toolbar-group">
-            <button class="toolbar-btn badge" data-cmd="toggle-mode" title="Toggle Plain/Markdown">MD</button>
-            <button class="toolbar-btn badge" data-cmd="toggle-font" title="Toggle Font">Sans</button>
             <button class="toolbar-btn" data-cmd="toggle-zen" title="Focus Mode (Ctrl+Shift+F)">Zen</button>
-            <div class="divider"></div>
-            
-            <!-- Segmented View Mode -->
-            <div class="segmented-control">
-              <button class="segmented-btn" data-cmd="view-edit" title="Editor Only">Edit</button>
-              <button class="segmented-btn is-active" data-cmd="view-split" title="Split View">Split</button>
-              <button class="segmented-btn" data-cmd="view-preview" title="Preview Only">Preview</button>
-            </div>
-
-            <div class="divider"></div>
-            <button class="toolbar-btn" data-cmd="export-pdf" title="Export Multipage PDF">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                <rect x="6" y="14" width="12" height="8"></rect>
-              </svg>
-            </button>
-            <button class="toolbar-btn" data-cmd="delete-note" title="Move to Trash" style="color: var(--danger-color);">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-              </svg>
-            </button>
           </div>
         </div>
 
@@ -144,9 +151,9 @@
             <div class="canvas-inner">
               <div class="editor-title-container">
                 <input type="text" id="note-title" class="note-title-input" placeholder="Untitled Note" autocomplete="off" />
-                <input type="text" id="note-desc" class="note-desc-input" placeholder="Add a description or note..." autocomplete="off" />
+                <input type="text" id="note-desc" class="note-desc-input" placeholder="Add a description or summary..." autocomplete="off" />
               </div>
-              <textarea id="note-body" class="note-body-textarea" placeholder="Start typing... (#tags and Markdown supported)"></textarea>
+              <textarea id="note-body" class="note-body-textarea" placeholder="Start writing here... (Markdown, HTML, or Plain Text)"></textarea>
             </div>
           </div>
 
@@ -161,13 +168,12 @@
         <!-- Status Bar -->
         <footer class="status-bar">
           <div class="status-left">
-            <span id="status-dot" class="status-dot"></span>
-            <span id="save-status">Saved</span>
-          </div>
-          <div class="status-right">
             <span id="reading-time">0 min read</span>
             <span id="word-count">0 words</span>
             <span id="char-count">0 chars</span>
+          </div>
+          <div class="status-right">
+            <span>Offline Ready</span>
           </div>
         </footer>
       </main>

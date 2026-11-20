@@ -4,6 +4,16 @@ All notable changes to the Notes PWA will be documented here.
 
 ## [Unreleased]
 ### Added
+- Editorial font trio integration: Inter (Sans), Newsreader (Serif), and JetBrains Mono (Code) with 1-click live font cycling
+- Symmetrical segmented header controls for View Mode (Edit | Split | Preview) and Note Format (Plain | MD | HTML)
+- Interactive checklists allowing live checkbox ticking directly inside the rendered preview pane
+- Visual PDF Page Break dividers with centered badges and native multipage print pagination
+- Export dropdown popover with direct exports for PDF, Markdown (.md), HTML (.html), and Plain Text (.txt)
+- Enhanced sidebar cards with format micro-badges (MD, HTML, TXT), 2-line clamped summaries, relative time labels, and hover actions
+- Refined indigo and slate color palette for elevated light and dark modes
+
+## [1.2.0] - 2026-11-20
+### Added
 - Complete UI/UX redesign with craft-style borderless document canvas
 - Unified segmented pill control for View Mode (Edit, Split, Preview)
 - Refined sidebar note cards with left active accent indicators and subtle tag badges
