@@ -9,6 +9,7 @@
   padding-bottom: var(--safe-bottom);
   padding-left: var(--safe-left);
   padding-right: var(--safe-right);
+  background-color: var(--bg-primary);
 }
 
 .app-header {
@@ -17,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--space-md);
+  padding: 0 16px;
   background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
   z-index: 20;
@@ -26,24 +27,26 @@
 .brand-section {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: 10px;
 }
 
 .brand-logo {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-xs);
 }
 
 .brand-title {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: 4px;
 }
 
 .app-main {
@@ -66,13 +69,6 @@
   flex: 1;
   display: flex;
   overflow: hidden;
-  position: relative;
-}
-
-.editor-wrapper, .preview-wrapper {
-  flex: 1;
-  height: 100%;
-  overflow-y: auto;
   position: relative;
 }
 

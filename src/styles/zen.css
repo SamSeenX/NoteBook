@@ -12,7 +12,7 @@ body.zen-mode .workspace,
 body.zen-mode .content-pane,
 body.zen-mode .editor-wrapper {
   width: 100% !important;
-  max-width: 820px !important;
+  max-width: 780px !important;
   margin: 0 auto !important;
   border: none !important;
   background: var(--bg-primary);
@@ -21,24 +21,29 @@ body.zen-mode .editor-wrapper {
 body.zen-mode .exit-zen-btn {
   position: fixed;
   top: calc(var(--safe-top) + 16px);
-  right: calc(var(--safe-right) + 16px);
+  right: calc(var(--safe-right) + 20px);
   z-index: 100;
   background: var(--bg-elevated);
   border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   border-radius: var(--radius-full);
   padding: 6px 14px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--text-secondary);
   display: flex !important;
   align-items: center;
   gap: 6px;
+  min-height: 32px;
+  min-width: auto;
+  cursor: pointer;
+  transition: all var(--transition-fast);
 }
 
 body.zen-mode .exit-zen-btn:hover {
-  background: var(--bg-tertiary);
+  background: var(--bg-hover);
   color: var(--text-primary);
+  border-color: var(--border-subtle);
 }
 
 .exit-zen-btn {

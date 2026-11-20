@@ -1,7 +1,7 @@
 .toolbar {
   min-height: var(--toolbar-height);
-  padding: 0 var(--space-sm);
-  background-color: var(--bg-secondary);
+  padding: 0 12px;
+  background-color: var(--bg-primary);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
@@ -9,35 +9,75 @@
   gap: var(--space-sm);
   overflow-x: auto;
   white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.toolbar::-webkit-scrollbar {
+  display: none;
 }
 
 .toolbar-group {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: 3px;
 }
 
 .toolbar-btn {
-  min-height: 36px;
-  min-width: 36px;
-  padding: 6px;
-  border-radius: var(--radius-sm);
+  min-height: 32px;
+  min-width: 32px;
+  padding: 5px 8px;
+  border-radius: var(--radius-xs);
   color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
 }
 
 .toolbar-btn:hover {
-  background-color: var(--bg-tertiary);
+  background-color: var(--bg-hover);
   color: var(--text-primary);
 }
 
 .toolbar-btn.is-active {
   background-color: var(--accent-subtle);
   color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* Segmented Control for View Modes */
+.segmented-control {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--bg-tertiary);
+  padding: 2px;
+  border-radius: var(--radius-sm);
+  gap: 2px;
+}
+
+.segmented-btn {
+  min-height: 28px;
+  padding: 3px 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: var(--radius-xs);
+  transition: all var(--transition-fast);
+}
+
+.segmented-btn:hover {
+  color: var(--text-primary);
+}
+
+.segmented-btn.is-active {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-xs);
+  font-weight: 600;
 }
 
 .divider {
   width: 1px;
-  height: 24px;
+  height: 20px;
   background-color: var(--border-color);
-  margin: 0 4px;
+  margin: 0 6px;
 }

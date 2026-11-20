@@ -9,6 +9,7 @@ export class EditorComponent {
     this.descInput = container.querySelector('#note-desc');
     this.bodyTextarea = container.querySelector('#note-body');
     this.saveStatus = document.querySelector('#save-status');
+    this.statusDot = document.querySelector('#status-dot');
     this.wordCountEl = document.querySelector('#word-count');
     this.charCountEl = document.querySelector('#char-count');
     this.readingTimeEl = document.querySelector('#reading-time');
@@ -29,7 +30,6 @@ export class EditorComponent {
     this.descInput.addEventListener('input', handleInput);
     this.bodyTextarea.addEventListener('input', handleInput);
 
-    // Keyboard shortcuts inside editor
     this.bodyTextarea.addEventListener('keydown', (e) => {
       const isCmdOrCtrl = e.metaKey || e.ctrlKey;
       if (isCmdOrCtrl && e.key === 'b') {
@@ -118,6 +118,7 @@ export class EditorComponent {
 
   setSaveStatus(msg) {
     if (this.saveStatus) this.saveStatus.textContent = msg;
+    if (this.statusDot) this.statusDot.classList.toggle('is-saving', msg.includes('...'));
   }
 
   applyFormat(format) {
