@@ -1,0 +1,83 @@
+.editor-title-container {
+  padding: var(--space-md) var(--space-lg) var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.note-title-input {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.note-desc-input {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.note-body-textarea {
+  flex: 1;
+  padding: var(--space-sm) var(--space-lg);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  min-height: 300px;
+}
+
+/* Preview Content Typography */
+.preview-content {
+  padding: var(--space-md) var(--space-lg);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.preview-content h1 { font-size: 1.8rem; margin: 0.8rem 0 0.4rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; }
+.preview-content h2 { font-size: 1.4rem; margin: 0.8rem 0 0.4rem; }
+.preview-content h3 { font-size: 1.2rem; margin: 0.6rem 0 0.3rem; }
+.preview-content p { margin-bottom: 0.8rem; }
+.preview-content ul, .preview-content ol { padding-left: 1.6rem; margin-bottom: 0.8rem; }
+.preview-content blockquote {
+  border-left: 4px solid var(--accent-color);
+  padding-left: 1rem;
+  color: var(--text-secondary);
+  margin: 0.8rem 0;
+  background: var(--bg-secondary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.preview-content pre {
+  background: var(--bg-secondary);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  margin-bottom: 0.8rem;
+  border: 1px solid var(--border-color);
+}
+.preview-content code {
+  font-family: var(--font-mono);
+  background: var(--bg-tertiary);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* Status Bar */
+.status-bar {
+  height: var(--status-height);
+  min-height: var(--status-height);
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-md);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.status-left, .status-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
