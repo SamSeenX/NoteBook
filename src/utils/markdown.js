@@ -5,6 +5,9 @@ export function parseMarkdown(text) {
 
   let html = text.replace(/\r\n/g, '\n');
 
+  // Page break shorthand
+  html = html.replace(/^---pagebreak---$/gim, '<div class="pdf-page-break"></div>');
+
   // Protect code blocks
   const codeBlocks = [];
   html = html.replace(/```([\w-]*)\n([\s\S]*?)```/g, (_, lang, code) => {
@@ -23,6 +26,14 @@ export function parseMarkdown(text) {
     return placeholder;
   });
 
+  // Protect pagebreak divs
+  const pageBreaks = [];
+  html = html.replace(/<div class="pdf-page-break"><\/div>/g, () => {
+    const placeholder = `__PAGE_BREAK_${pageBreaks.length}__`;
+    pageBreaks.push('<div class="pdf-page-break"></div>');
+    return placeholder;
+  });
+
   // Escape raw HTML before markdown processing
   html = escapeHTML(html);
 
@@ -33,6 +44,14 @@ export function parseMarkdown(text) {
   inlineCodes.forEach((code, idx) => {
     html = html.replace(`__INLINE_CODE_${idx}__`, code);
   });
+  pageBreaks.forEach((pb, idx) => {
+    html = html.replace(`__PAGE_BREAK_${idx}__`, pb);
+  });
+
+  // Checklists (- [ ] or - [x])
+  html = html.replace(/^-\s+\[ \]\s+(.+)$/gm, '<ul class="task-list"><li><input type="checkbox" data-task-idx> $1</li></ul>');
+  html = html.replace(/^-\s+\[[xX]\]\s+(.+)$/gm, '<ul class="task-list"><li><input type="checkbox" checked data-task-idx> $1</li></ul>');
+  html = html.replace(/<\/ul>\n<ul class="task-list">/g, '');
 
   // Headers (# H1 to ###### H6)
   html = html.replace(/^######\s+(.+)$/gm, '<h6>$1</h6>');
@@ -54,15 +73,13 @@ export function parseMarkdown(text) {
   html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
   html = html.replace(/~~([^~]+)~~/g, '<del>$1</del>');
 
-  // Links: [text](url)
+  // Links
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
 
-  // Lists
-  // Unordered lists
+  // Unordered & Ordered lists
   html = html.replace(/^[\*\-]\s+(.+)$/gm, '<ul><li>$1</li></ul>');
   html = html.replace(/<\/ul>\n<ul>/g, '');
 
-  // Ordered lists
   html = html.replace(/^\d+\.\s+(.+)$/gm, '<ol><li>$1</li></ol>');
   html = html.replace(/<\/ol>\n<ol>/g, '');
 
@@ -71,7 +88,7 @@ export function parseMarkdown(text) {
   const formattedBlocks = blocks.map((block) => {
     const trimmed = block.trim();
     if (!trimmed) return '';
-    if (/^<(?:h[1-6]|pre|blockquote|ul|ol|hr)/i.test(trimmed)) {
+    if (/^<(?:h[1-6]|pre|blockquote|ul|ol|hr|div)/i.test(trimmed)) {
       return trimmed;
     }
     return `<p>${trimmed.replace(/\n/g, '<br>')}</p>`;

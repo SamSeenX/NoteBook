@@ -40,7 +40,7 @@
 }
 
 .note-desc-input {
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.4;
   color: var(--text-secondary);
   font-family: var(--font-sans);
@@ -56,8 +56,8 @@
 .note-body-textarea {
   flex: 1;
   font-family: var(--font-editor);
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: 1.02rem;
+  line-height: 1.75;
   color: var(--text-primary);
   min-height: 420px;
   padding: 0;
@@ -69,52 +69,7 @@
   opacity: 0.5;
 }
 
-/* Preview Content Typography */
-.preview-content {
-  font-family: var(--font-editor);
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--text-primary);
-}
-
-.preview-content h1 { font-size: 1.9rem; font-weight: 750; letter-spacing: -0.02em; margin: 1.2rem 0 0.5rem; }
-.preview-content h2 { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.015em; margin: 1.1rem 0 0.4rem; }
-.preview-content h3 { font-size: 1.2rem; font-weight: 650; margin: 0.9rem 0 0.3rem; }
-.preview-content p { margin-bottom: 0.95rem; }
-.preview-content ul, .preview-content ol { padding-left: 1.5rem; margin-bottom: 0.95rem; }
-.preview-content li { margin-bottom: 0.3rem; }
-
-.preview-content blockquote {
-  border-left: 3px solid var(--accent-color);
-  padding: 6px 16px;
-  color: var(--text-secondary);
-  margin: 1.1rem 0;
-  background: var(--bg-secondary);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-style: italic;
-}
-
-.preview-content pre {
-  background: var(--bg-secondary);
-  padding: 14px 18px;
-  border-radius: var(--radius-sm);
-  overflow-x: auto;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  margin: 1rem 0;
-  border: 1px solid var(--border-color);
-}
-
-.preview-content code {
-  font-family: var(--font-mono);
-  font-size: 0.88em;
-  background: var(--bg-tertiary);
-  padding: 2px 6px;
-  border-radius: var(--radius-xs);
-  color: var(--text-primary);
-}
-
-/* Sleek Status Bar */
+/* Status Bar */
 .status-bar {
   height: var(--status-height);
   min-height: var(--status-height);
@@ -124,7 +79,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
 }
 
@@ -141,7 +96,6 @@
   border-radius: var(--radius-full);
   background: var(--success-color);
   margin-right: 6px;
-  transition: background var(--transition-fast);
 }
 
 .status-dot.is-saving {

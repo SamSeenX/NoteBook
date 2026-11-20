@@ -8,6 +8,7 @@
 @import './zen.css';
 @import './toolbar.css';
 @import './editor.css';
+@import './prose.css';
 @import './feedback.css';
 @import './print.css';
 
@@ -38,6 +39,9 @@
   padding: 0 var(--space-md);
   font-weight: 500;
   border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-primary:hover {
@@ -51,6 +55,9 @@
   font-weight: 500;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-secondary:hover {

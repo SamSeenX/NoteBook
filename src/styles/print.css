@@ -12,11 +12,13 @@
   .status-bar,
   .toast-container,
   .modal-overlay,
-  .editor-wrapper {
+  .editor-wrapper,
+  .exit-zen-btn,
+  .dropdown-menu {
     display: none !important;
   }
 
-  body, html, #app, .app-main, .workspace, .content-pane, .preview-wrapper {
+  body, html, #app, .app-main, .workspace, .content-pane, .preview-wrapper, .canvas-inner {
     height: auto !important;
     width: 100% !important;
     overflow: visible !important;
@@ -34,7 +36,8 @@
   .preview-content {
     padding: 0 !important;
     font-size: 11pt !important;
-    line-height: 1.5 !important;
+    line-height: 1.6 !important;
+    color: #000000 !important;
   }
 
   /* Print document header */
@@ -71,7 +74,7 @@
     color: #000000;
   }
 
-  p, pre, blockquote, ul, ol, table, img {
+  p, pre, blockquote, ul, ol, table, img, tr {
     page-break-inside: avoid;
     break-inside: avoid;
   }
@@ -80,7 +83,7 @@
     background: #f8fafc !important;
     border: 1pt solid #cbd5e1 !important;
     white-space: pre-wrap !important;
-    word-break: break-all;
+    color: #0f172a !important;
   }
 
   code {
@@ -97,9 +100,21 @@
     color: #000000 !important;
     text-decoration: underline !important;
   }
+
+  /* Page break rules */
+  .pdf-page-break {
+    border: none !important;
+    margin: 0 !important;
+    height: 0 !important;
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+
+  .pdf-page-break::after {
+    display: none !important;
+  }
 }
 
-/* Screen default for print header */
 .print-header {
   display: none;
 }

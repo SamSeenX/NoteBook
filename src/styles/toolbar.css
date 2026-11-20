@@ -19,16 +19,16 @@
 .toolbar-group {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
 }
 
 .toolbar-btn {
-  min-height: 32px;
-  min-width: 32px;
-  padding: 5px 8px;
+  min-height: 30px;
+  min-width: 30px;
+  padding: 4px 7px;
   border-radius: var(--radius-xs);
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
   transition: all var(--transition-fast);
 }
@@ -55,9 +55,9 @@
 }
 
 .segmented-btn {
-  min-height: 28px;
-  padding: 3px 10px;
-  font-size: 0.8rem;
+  min-height: 26px;
+  padding: 2px 9px;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--text-secondary);
   border-radius: var(--radius-xs);
@@ -77,7 +77,59 @@
 
 .divider {
   width: 1px;
-  height: 20px;
+  height: 18px;
   background-color: var(--border-color);
-  margin: 0 6px;
+  margin: 0 5px;
+}
+
+/* Page Break Toolbar Button */
+.btn-pagebreak {
+  color: var(--accent-color);
+  background: var(--accent-subtle);
+  border: 1px solid var(--accent-border);
+  gap: 4px;
+}
+
+.btn-pagebreak:hover {
+  background: var(--accent-color);
+  color: #ffffff;
+}
+
+/* Export Dropdown Popover */
+.dropdown-menu {
+  position: absolute;
+  right: 12px;
+  top: 48px;
+  width: 220px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 6px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 100;
+}
+
+.dropdown-menu.is-open {
+  display: flex;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-primary);
+  text-align: left;
+  min-height: 32px;
+}
+
+.dropdown-item:hover {
+  background: var(--bg-hover);
+  color: var(--accent-color);
 }
