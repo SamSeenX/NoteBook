@@ -4,6 +4,12 @@ All notable changes to the Notes PWA will be documented here.
 
 ## [Unreleased]
 ### Fixed
+- Fixed page shifting by restructuring the application into independent full-height columns (sidebar and workspace)
+- Anchored the sidebar toggle button at the top-left of the workspace header for stable, persistent navigation
+- Added fluid CSS easing to the writing canvas to eliminate layout snap when toggling the sidebar
+
+## [1.3.1] - 2026-11-20
+### Fixed
 - Relocated Edit, Split, and Preview controls directly into the workspace toolbar right above the editor and preview pane
 - Fixed segmented view button click event routing so switching views works instantaneously
 - Fixed sidebar hamburger button on desktop screens by implementing smooth margin collapse transitions alongside mobile drawer toggles

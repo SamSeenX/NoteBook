@@ -14,6 +14,7 @@
   display: flex;
   flex-direction: column;
   padding: 24px 28px 48px;
+  transition: max-width var(--transition-base), padding var(--transition-base);
 }
 
 .editor-title-container {
