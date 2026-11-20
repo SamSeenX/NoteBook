@@ -3,6 +3,13 @@
 All notable changes to the Notes PWA will be documented here.
 
 ## [Unreleased]
+### Fixed
+- Relocated Edit, Split, and Preview controls directly into the workspace toolbar right above the editor and preview pane
+- Fixed segmented view button click event routing so switching views works instantaneously
+- Fixed sidebar hamburger button on desktop screens by implementing smooth margin collapse transitions alongside mobile drawer toggles
+- Extracted tags bar rendering into modular `tags-bar.js` helper maintaining strict sub-200 line file boundaries
+
+## [1.3.0] - 2026-11-20
 ### Added
 - Editorial font trio integration: Inter (Sans), Newsreader (Serif), and JetBrains Mono (Code) with 1-click live font cycling
 - Symmetrical segmented header controls for View Mode (Edit | Split | Preview) and Note Format (Plain | MD | HTML)
