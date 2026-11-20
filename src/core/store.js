@@ -1,4 +1,5 @@
 import { eventBus } from './event-bus.js';
+import { extractTags } from '../utils/tags.js';
 
 class Store {
   constructor() {
@@ -6,8 +7,12 @@ class Store {
       notes: [],
       activeNoteId: null,
       searchQuery: '',
+      activeTag: null,
+      showTrash: false,
+      zenMode: false,
       sortBy: localStorage.getItem('notes_sort_by') || 'updated_desc',
       viewMode: localStorage.getItem('notes_view_mode') || 'split',
+      editorFont: localStorage.getItem('notes_font') || 'sans',
       theme: localStorage.getItem('notes_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
       isSidebarOpen: window.innerWidth > 768
     };
@@ -44,9 +49,16 @@ class Store {
     if (partial.viewMode !== undefined) {
       localStorage.setItem('notes_view_mode', partial.viewMode);
     }
+    if (partial.editorFont !== undefined) {
+      localStorage.setItem('notes_font', partial.editorFont);
+      document.documentElement.setAttribute('data-font', partial.editorFont);
+    }
     if (partial.theme !== undefined) {
       localStorage.setItem('notes_theme', partial.theme);
       document.documentElement.setAttribute('data-theme', partial.theme);
+    }
+    if (partial.zenMode !== undefined) {
+      document.body.classList.toggle('zen-mode', partial.zenMode);
     }
 
     this.notify(changedKeys);
@@ -58,9 +70,17 @@ class Store {
   }
 
   getFilteredNotes() {
-    const { notes, searchQuery, sortBy } = this.state;
-    let filtered = [...notes];
+    const { notes, searchQuery, sortBy, activeTag, showTrash } = this.state;
 
+    // Filter by active vs trashed
+    let filtered = notes.filter((n) => (showTrash ? Boolean(n.trashed) : !n.trashed));
+
+    // Filter by tag if selected
+    if (!showTrash && activeTag) {
+      filtered = filtered.filter((n) => extractTags(n.content).includes(activeTag));
+    }
+
+    // Filter by search query
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       filtered = filtered.filter(
@@ -72,9 +92,10 @@ class Store {
     }
 
     filtered.sort((a, b) => {
-      // Pinned notes always surface first
-      if (a.isPinned && !b.isPinned) return -1;
-      if (!a.isPinned && b.isPinned) return 1;
+      if (!showTrash) {
+        if (a.isPinned && !b.isPinned) return -1;
+        if (!a.isPinned && b.isPinned) return 1;
+      }
 
       switch (sortBy) {
         case 'updated_asc':

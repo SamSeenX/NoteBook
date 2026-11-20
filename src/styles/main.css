@@ -3,6 +3,9 @@
 @import './layout.css';
 @import './sidebar.css';
 @import './note-item.css';
+@import './tags.css';
+@import './trash.css';
+@import './zen.css';
 @import './toolbar.css';
 @import './editor.css';
 @import './feedback.css';

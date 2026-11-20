@@ -1,0 +1,46 @@
+body.zen-mode .app-header,
+body.zen-mode .sidebar,
+body.zen-mode .sidebar-backdrop,
+body.zen-mode .toolbar,
+body.zen-mode .status-bar,
+body.zen-mode .preview-wrapper {
+  display: none !important;
+}
+
+body.zen-mode .app-main,
+body.zen-mode .workspace,
+body.zen-mode .content-pane,
+body.zen-mode .editor-wrapper {
+  width: 100% !important;
+  max-width: 820px !important;
+  margin: 0 auto !important;
+  border: none !important;
+  background: var(--bg-primary);
+}
+
+body.zen-mode .exit-zen-btn {
+  position: fixed;
+  top: calc(var(--safe-top) + 16px);
+  right: calc(var(--safe-right) + 16px);
+  z-index: 100;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+}
+
+body.zen-mode .exit-zen-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.exit-zen-btn {
+  display: none;
+}

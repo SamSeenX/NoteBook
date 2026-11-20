@@ -1,6 +1,7 @@
 :root {
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --font-editor: var(--font-sans);
 
   /* Theme tokens - Light mode default */
   --bg-primary: #ffffff;
@@ -62,6 +63,10 @@
   /* Animation */
   --transition-fast: 150ms ease;
   --transition-base: 220ms ease;
+}
+
+[data-font="mono"] {
+  --font-editor: var(--font-mono);
 }
 
 [data-theme="dark"] {

@@ -11,6 +11,7 @@ export class EditorComponent {
     this.saveStatus = document.querySelector('#save-status');
     this.wordCountEl = document.querySelector('#word-count');
     this.charCountEl = document.querySelector('#char-count');
+    this.readingTimeEl = document.querySelector('#reading-time');
 
     this.debounceTimer = null;
     this.bindEvents();
@@ -21,12 +22,27 @@ export class EditorComponent {
       this.updateCounters();
       this.setSaveStatus('Saving...');
       clearTimeout(this.debounceTimer);
-      this.debounceTimer = setTimeout(() => this.saveCurrentNote(), 600);
+      this.debounceTimer = setTimeout(() => this.saveCurrentNote(), 400);
     };
 
     this.titleInput.addEventListener('input', handleInput);
     this.descInput.addEventListener('input', handleInput);
     this.bodyTextarea.addEventListener('input', handleInput);
+
+    // Keyboard shortcuts inside editor
+    this.bodyTextarea.addEventListener('keydown', (e) => {
+      const isCmdOrCtrl = e.metaKey || e.ctrlKey;
+      if (isCmdOrCtrl && e.key === 'b') {
+        e.preventDefault();
+        this.applyFormat('bold');
+      } else if (isCmdOrCtrl && e.key === 'i') {
+        e.preventDefault();
+        this.applyFormat('italic');
+      } else if (isCmdOrCtrl && e.key === 'k') {
+        e.preventDefault();
+        this.applyFormat('link');
+      }
+    });
 
     eventBus.on('editor:format', ({ format }) => this.applyFormat(format));
     eventBus.on('note:mode:change', ({ mode }) => {
@@ -61,7 +77,6 @@ export class EditorComponent {
     this.descInput.disabled = false;
     this.bodyTextarea.disabled = false;
 
-    // Only update value if different to prevent cursor jumps
     if (this.titleInput.value !== (note.title || '')) this.titleInput.value = note.title || '';
     if (this.descInput.value !== (note.description || '')) this.descInput.value = note.description || '';
     if (this.bodyTextarea.value !== (note.content || '')) this.bodyTextarea.value = note.content || '';
@@ -94,9 +109,11 @@ export class EditorComponent {
     const text = this.bodyTextarea.value.trim();
     const words = text ? text.split(/\s+/).length : 0;
     const chars = text.length;
+    const readMin = Math.ceil(words / 200);
 
     if (this.wordCountEl) this.wordCountEl.textContent = `${words} words`;
     if (this.charCountEl) this.charCountEl.textContent = `${chars} chars`;
+    if (this.readingTimeEl) this.readingTimeEl.textContent = `${readMin} min read`;
   }
 
   setSaveStatus(msg) {
@@ -119,6 +136,10 @@ export class EditorComponent {
       case 'italic':
         replacement = `*${selected || 'italic text'}*`;
         cursorOffset = selected ? replacement.length : 1;
+        break;
+      case 'link':
+        replacement = `[${selected || 'link text'}](https://)`;
+        cursorOffset = selected ? replacement.length - 1 : 1;
         break;
       case 'h1':
         replacement = `\n# ${selected || 'Heading 1'}\n`;

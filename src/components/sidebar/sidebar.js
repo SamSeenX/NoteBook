@@ -1,7 +1,9 @@
 import { store } from '../../core/store.js';
 import { eventBus } from '../../core/event-bus.js';
 import { idb } from '../../utils/idb.js';
+import { getAllUniqueTags } from '../../utils/tags.js';
 import { renderNoteItem } from './note-item.js';
+import { escapeHTML } from '../../utils/sanitize.js';
 
 export class SidebarComponent {
   constructor(asideElement, backdropElement) {
@@ -11,6 +13,9 @@ export class SidebarComponent {
     this.searchInput = asideElement.querySelector('#search-input');
     this.sortSelect = asideElement.querySelector('#sort-select');
     this.newNoteBtn = asideElement.querySelector('#new-note-btn');
+    this.tagsBar = asideElement.querySelector('#tags-bar');
+    this.trashToggleBtn = asideElement.querySelector('#trash-toggle-btn');
+    this.trashBanner = asideElement.querySelector('#trash-banner');
 
     this.bindEvents();
     this.render();
@@ -27,7 +32,14 @@ export class SidebarComponent {
 
     if (this.newNoteBtn) {
       this.newNoteBtn.addEventListener('click', () => {
+        if (store.getState().showTrash) store.setState({ showTrash: false });
         eventBus.emit('note:create');
+      });
+    }
+
+    if (this.trashToggleBtn) {
+      this.trashToggleBtn.addEventListener('click', () => {
+        store.setState({ showTrash: !store.getState().showTrash, activeTag: null });
       });
     }
 
@@ -37,23 +49,48 @@ export class SidebarComponent {
       });
     }
 
-    // Event delegation for list items
+    // Delegation on tags bar
+    this.tagsBar.addEventListener('click', (e) => {
+      const pill = e.target.closest('[data-tag]');
+      if (!pill) return;
+      const tag = pill.dataset.tag;
+      const current = store.getState().activeTag;
+      store.setState({ activeTag: current === tag ? null : tag });
+    });
+
+    // Delegation on notes list
     this.listContainer.addEventListener('click', async (e) => {
       const pinBtn = e.target.closest('[data-action="pin"]');
       if (pinBtn) {
         e.stopPropagation();
-        const noteId = pinBtn.dataset.id;
-        await this.togglePin(noteId);
+        await this.togglePin(pinBtn.dataset.id);
+        return;
+      }
+
+      const restoreBtn = e.target.closest('[data-action="restore"]');
+      if (restoreBtn) {
+        e.stopPropagation();
+        eventBus.emit('note:restore', { id: restoreBtn.dataset.id });
+        return;
+      }
+
+      const destroyBtn = e.target.closest('[data-action="destroy"]');
+      if (destroyBtn) {
+        e.stopPropagation();
+        eventBus.emit('modal:confirm', {
+          title: 'Permanently Delete Note',
+          message: 'This note will be permanently erased. This action cannot be undone.',
+          confirmText: 'Delete Forever',
+          isDanger: true,
+          onConfirm: () => eventBus.emit('note:destroy', { id: destroyBtn.dataset.id })
+        });
         return;
       }
 
       const itemCard = e.target.closest('.note-item');
       if (itemCard) {
-        const noteId = itemCard.dataset.id;
-        eventBus.emit('note:select', { id: noteId });
-        if (window.innerWidth <= 768) {
-          store.setState({ isSidebarOpen: false });
-        }
+        eventBus.emit('note:select', { id: itemCard.dataset.id });
+        if (window.innerWidth <= 768) store.setState({ isSidebarOpen: false });
       }
     });
 
@@ -63,7 +100,9 @@ export class SidebarComponent {
         changedKeys.includes('notes') ||
         changedKeys.includes('activeNoteId') ||
         changedKeys.includes('searchQuery') ||
-        changedKeys.includes('sortBy')
+        changedKeys.includes('sortBy') ||
+        changedKeys.includes('activeTag') ||
+        changedKeys.includes('showTrash')
       ) {
         this.render();
       }
@@ -78,45 +117,62 @@ export class SidebarComponent {
     const state = store.getState();
     const note = state.notes.find((n) => n.id === id);
     if (!note) return;
-
     const updatedNote = { ...note, isPinned: !note.isPinned, updatedAt: Date.now() };
     await idb.put(updatedNote);
-
     const updatedNotes = state.notes.map((n) => (n.id === id ? updatedNote : n));
     store.setState({ notes: updatedNotes });
   }
 
   updateSidebarVisibility(isOpen) {
-    if (isOpen) {
-      this.aside.classList.add('is-open');
-      if (this.backdrop) this.backdrop.classList.add('is-active');
-    } else {
-      this.aside.classList.remove('is-open');
-      if (this.backdrop) this.backdrop.classList.remove('is-active');
+    this.aside.classList.toggle('is-open', isOpen);
+    if (this.backdrop) this.backdrop.classList.toggle('is-active', isOpen);
+  }
+
+  renderTags() {
+    const { notes, activeTag, showTrash } = store.getState();
+    if (showTrash) {
+      this.tagsBar.style.display = 'none';
+      return;
     }
+    const tags = getAllUniqueTags(notes);
+    if (tags.length === 0) {
+      this.tagsBar.style.display = 'none';
+      return;
+    }
+    this.tagsBar.style.display = 'flex';
+    this.tagsBar.innerHTML = `
+      <button class="tag-pill ${!activeTag ? 'is-active' : ''}" data-tag="">All</button>
+      ${tags.map((t) => `
+        <button class="tag-pill ${activeTag === t.tag ? 'is-active' : ''}" data-tag="${escapeHTML(t.tag)}">
+          #${escapeHTML(t.tag)} <span class="tag-pill-count">${t.count}</span>
+        </button>
+      `).join('')}
+    `;
   }
 
   render() {
+    this.renderTags();
+    const { showTrash, activeNoteId } = store.getState();
     const filtered = store.getFilteredNotes();
-    const { activeNoteId } = store.getState();
+
+    if (this.trashBanner) {
+      this.trashBanner.style.display = showTrash ? 'flex' : 'none';
+    }
+    if (this.trashToggleBtn) {
+      this.trashToggleBtn.classList.toggle('is-active', showTrash);
+    }
 
     if (filtered.length === 0) {
       this.listContainer.innerHTML = `
         <div class="empty-state">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-          </svg>
-          <p style="font-size: 0.9rem;">No notes found</p>
+          <p style="font-size: 0.9rem;">${showTrash ? 'Trash is empty' : 'No notes found'}</p>
         </div>
       `;
       return;
     }
 
     this.listContainer.innerHTML = filtered
-      .map((note) => renderNoteItem(note, note.id === activeNoteId))
+      .map((note) => renderNoteItem(note, note.id === activeNoteId, showTrash))
       .join('');
   }
 }

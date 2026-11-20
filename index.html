@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-font="sans">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -16,9 +16,7 @@
       <div class="brand-section">
         <button id="sidebar-toggle" class="icon-btn-sm" title="Toggle Sidebar" aria-label="Toggle Sidebar">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
           </svg>
         </button>
         <img src="/icon.svg" alt="Notes Logo" class="brand-logo" />
@@ -28,30 +26,21 @@
       <div class="header-actions">
         <button id="export-backup-btn" class="icon-btn-sm" title="Backup JSON" aria-label="Backup JSON">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
         </button>
         <label id="import-backup-label" class="icon-btn-sm" title="Restore JSON" aria-label="Restore JSON" style="cursor: pointer;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="17 8 12 3 7 8"></polyline>
-            <line x1="12" y1="3" x2="12" y2="15"></line>
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line>
           </svg>
           <input type="file" id="import-backup-input" accept=".json" class="sr-only" />
         </label>
         <button id="theme-toggle" class="icon-btn-sm" title="Toggle Theme" aria-label="Toggle Theme">
-          <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
         </button>
       </div>
@@ -66,8 +55,7 @@
         <div class="sidebar-controls">
           <div class="search-wrapper">
             <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
             <input type="search" id="search-input" class="search-input" placeholder="Search notes..." autocomplete="off" />
           </div>
@@ -84,16 +72,35 @@
           </div>
         </div>
 
+        <div id="tags-bar" class="tags-bar"></div>
+
+        <div id="trash-banner" class="trash-banner" style="display: none;">
+          <span>Viewing Trash</span>
+          <button id="empty-trash-btn" class="btn-empty-trash">Empty Trash</button>
+        </div>
+
         <div id="notes-list" class="notes-list-container"></div>
+
+        <div class="sidebar-footer">
+          <button id="trash-toggle-btn" class="trash-toggle-btn" title="View Trash">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            <span>Trash</span>
+          </button>
+        </div>
       </aside>
 
       <!-- Workspace -->
       <main class="workspace">
+        <button id="exit-zen-btn" class="exit-zen-btn" title="Exit Zen Mode (Esc)">Exit Focus</button>
+
         <!-- Toolbar -->
         <div id="toolbar" class="toolbar">
           <div class="toolbar-group">
-            <button class="toolbar-btn" data-cmd="bold" title="Bold (**)"><strong>B</strong></button>
-            <button class="toolbar-btn" data-cmd="italic" title="Italic (*)"><em>I</em></button>
+            <button class="toolbar-btn" data-cmd="bold" title="Bold (Ctrl+B)"><strong>B</strong></button>
+            <button class="toolbar-btn" data-cmd="italic" title="Italic (Ctrl+I)"><em>I</em></button>
             <button class="toolbar-btn" data-cmd="h1" title="Heading 1">H1</button>
             <button class="toolbar-btn" data-cmd="h2" title="Heading 2">H2</button>
             <button class="toolbar-btn" data-cmd="list" title="Bullet List">•</button>
@@ -104,6 +111,8 @@
 
           <div class="toolbar-group">
             <button class="toolbar-btn badge" data-cmd="toggle-mode" title="Toggle Plain/Markdown">MD</button>
+            <button class="toolbar-btn badge" data-cmd="toggle-font" title="Toggle Editor Font">Sans</button>
+            <button class="toolbar-btn" data-cmd="toggle-zen" title="Focus / Zen Mode (Ctrl+Shift+F)">Zen</button>
             <div class="divider"></div>
             <button class="toolbar-btn" data-cmd="view-edit" title="Editor Only">Edit</button>
             <button class="toolbar-btn is-active" data-cmd="view-split" title="Split View">Split</button>
@@ -111,15 +120,13 @@
             <div class="divider"></div>
             <button class="toolbar-btn" data-cmd="export-pdf" title="Export Multipage PDF">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9V2h12v7"></path>
-                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
                 <rect x="6" y="14" width="12" height="8"></rect>
               </svg>
             </button>
-            <button class="toolbar-btn" data-cmd="delete-note" title="Delete Note" style="color: var(--danger-color);">
+            <button class="toolbar-btn" data-cmd="delete-note" title="Move to Trash" style="color: var(--danger-color);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="3 6 5 6 21 6"></polyline>
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
               </svg>
             </button>
           </div>
@@ -133,7 +140,7 @@
               <input type="text" id="note-title" class="note-title-input" placeholder="Note Title" autocomplete="off" />
               <input type="text" id="note-desc" class="note-desc-input" placeholder="Optional description..." autocomplete="off" />
             </div>
-            <textarea id="note-body" class="note-body-textarea" placeholder="Start typing your note here... (Markdown supported)"></textarea>
+            <textarea id="note-body" class="note-body-textarea" placeholder="Start typing here... (#tags, Markdown supported)"></textarea>
           </div>
 
           <!-- Preview -->
@@ -148,6 +155,7 @@
             <span id="save-status">Saved</span>
           </div>
           <div class="status-right">
+            <span id="reading-time">0 min read</span>
             <span id="word-count">0 words</span>
             <span id="char-count">0 chars</span>
           </div>

@@ -1,0 +1,53 @@
+.sidebar-footer {
+  padding: var(--space-xs) var(--space-sm);
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trash-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.trash-toggle-btn:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.trash-toggle-btn.is-active {
+  background-color: var(--danger-subtle);
+  color: var(--danger-color);
+  font-weight: 600;
+}
+
+.trash-banner {
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--danger-subtle);
+  color: var(--danger-color);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.btn-empty-trash {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--danger-color);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.btn-empty-trash:hover {
+  background: var(--danger-hover);
+}
