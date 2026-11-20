@@ -2,6 +2,10 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.3.4] - 2026-11-20
+### Added
+- Configured `Escape` key inside the search bar to immediately collapse the sidebar panel, blur the input, and clear active search queries
+
 ## [1.3.3] - 2026-11-20
 ### Added
 - Implemented `Ctrl+K` and `Cmd+K` keyboard shortcut to toggle open the sidebar and focus the search field with instant selection
