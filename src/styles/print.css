@@ -1,0 +1,105 @@
+@media print {
+  @page {
+    margin: 1.5cm;
+    size: auto;
+  }
+
+  /* Hide app chrome during printing */
+  .app-header,
+  .sidebar,
+  .sidebar-backdrop,
+  .toolbar,
+  .status-bar,
+  .toast-container,
+  .modal-overlay,
+  .editor-wrapper {
+    display: none !important;
+  }
+
+  body, html, #app, .app-main, .workspace, .content-pane, .preview-wrapper {
+    height: auto !important;
+    width: 100% !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    position: static !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .preview-wrapper {
+    display: block !important;
+  }
+
+  .preview-content {
+    padding: 0 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Print document header */
+  .print-header {
+    margin-bottom: 24pt;
+    padding-bottom: 12pt;
+    border-bottom: 1.5pt solid #0f172a;
+    display: block !important;
+  }
+
+  .print-title {
+    font-size: 24pt;
+    font-weight: bold;
+    margin-bottom: 6pt;
+    color: #000000;
+  }
+
+  .print-desc {
+    font-size: 13pt;
+    color: #475569;
+    font-style: italic;
+    margin-bottom: 6pt;
+  }
+
+  .print-meta {
+    font-size: 9pt;
+    color: #64748b;
+  }
+
+  /* Multipage pagination & page breaks */
+  h1, h2, h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+    color: #000000;
+  }
+
+  p, pre, blockquote, ul, ol, table, img {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  pre {
+    background: #f8fafc !important;
+    border: 1pt solid #cbd5e1 !important;
+    white-space: pre-wrap !important;
+    word-break: break-all;
+  }
+
+  code {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+  }
+
+  blockquote {
+    border-left: 3pt solid #334155 !important;
+    background: #f8fafc !important;
+  }
+
+  a {
+    color: #000000 !important;
+    text-decoration: underline !important;
+  }
+}
+
+/* Screen default for print header */
+.print-header {
+  display: none;
+}
