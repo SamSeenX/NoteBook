@@ -2,7 +2,17 @@
 
 All notable changes to the Notes PWA will be documented here.
 
-## [Unreleased]
+## [1.3.3] - 2026-11-20
+### Added
+- Implemented `Ctrl+K` and `Cmd+K` keyboard shortcut to toggle open the sidebar and focus the search field with instant selection
+- Added `Escape` key handling to clear and blur the search input cleanly
+- Positioned note format controls (`Plain | MD | HTML`) directly beside the Zen focus mode button in the workspace toolbar
+
+### Fixed
+- Configured sidebar to be collapsed by default on initial visits
+- Persisted sidebar open and closed state in `localStorage` across page reloads
+
+## [1.3.2] - 2026-11-20
 ### Fixed
 - Fixed page shifting by restructuring the application into independent full-height columns (sidebar and workspace)
 - Anchored the sidebar toggle button at the top-left of the workspace header for stable, persistent navigation
