@@ -13,13 +13,17 @@ export class ToolbarComponent {
     this.toolbar.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-cmd]');
       if (!btn) return;
-
-      const cmd = btn.dataset.cmd;
-      this.handleCommand(cmd);
+      this.handleCommand(btn.dataset.cmd);
     });
 
     store.subscribe((state, changedKeys) => {
-      if (changedKeys.includes('viewMode') || changedKeys.includes('activeNoteId') || changedKeys.includes('notes')) {
+      if (
+        changedKeys.includes('viewMode') ||
+        changedKeys.includes('activeNoteId') ||
+        changedKeys.includes('notes') ||
+        changedKeys.includes('editorFont') ||
+        changedKeys.includes('zenMode')
+      ) {
         this.syncState();
       }
     });
@@ -32,6 +36,18 @@ export class ToolbarComponent {
       const mode = cmd.replace('view-', '');
       store.setState({ viewMode: mode });
       document.body.setAttribute('data-view', mode);
+      return;
+    }
+
+    if (cmd === 'toggle-zen') {
+      store.setState({ zenMode: !store.getState().zenMode });
+      return;
+    }
+
+    if (cmd === 'toggle-font') {
+      const current = store.getState().editorFont;
+      const nextFont = current === 'mono' ? 'sans' : 'mono';
+      store.setState({ editorFont: nextFont });
       return;
     }
 
@@ -54,11 +70,11 @@ export class ToolbarComponent {
     if (cmd === 'delete-note') {
       if (!note) return;
       eventBus.emit('modal:confirm', {
-        title: 'Delete Note',
-        message: `Are you sure you want to delete "${note.title || 'Untitled Note'}"? This action cannot be undone.`,
-        confirmText: 'Delete',
+        title: 'Move Note to Trash',
+        message: `Move "${note.title || 'Untitled Note'}" to trash? You can restore it later.`,
+        confirmText: 'Move to Trash',
         isDanger: true,
-        onConfirm: () => eventBus.emit('note:delete', { id: note.id })
+        onConfirm: () => eventBus.emit('note:trash', { id: note.id })
       });
       return;
     }
@@ -69,13 +85,24 @@ export class ToolbarComponent {
 
   syncState() {
     const note = store.getActiveNote();
-    const { viewMode } = store.getState();
+    const { viewMode, editorFont, zenMode } = store.getState();
 
     // Update active view buttons
     this.toolbar.querySelectorAll('[data-cmd^="view-"]').forEach((btn) => {
       const mode = btn.dataset.cmd.replace('view-', '');
       btn.classList.toggle('is-active', mode === viewMode);
     });
+
+    // Update font toggle button
+    const fontBtn = this.toolbar.querySelector('[data-cmd="toggle-font"]');
+    if (fontBtn) {
+      fontBtn.textContent = editorFont === 'mono' ? 'Mono' : 'Sans';
+      fontBtn.title = `Editor Font: ${editorFont === 'mono' ? 'Monospace' : 'Sans-Serif'}`;
+    }
+
+    // Update zen button
+    const zenBtn = this.toolbar.querySelector('[data-cmd="toggle-zen"]');
+    if (zenBtn) zenBtn.classList.toggle('is-active', zenMode);
 
     // Update mode badge
     const modeBtn = this.toolbar.querySelector('[data-cmd="toggle-mode"]');

@@ -4,7 +4,8 @@ import { eventBus } from './core/event-bus.js';
 import { setupErrorBoundary } from './core/error-boundary.js';
 import { idb } from './utils/idb.js';
 import { exportAllNotesAsJSON, importNotesFromJSON } from './utils/backup.js';
-import { exportNoteToPDF } from './utils/pdf.js';
+import { setupDragAndDrop } from './utils/file-drop.js';
+import { setupKeyboardShortcuts } from './utils/shortcuts.js';
 
 import { ToastComponent } from './components/toast/toast.js';
 import { ModalComponent } from './components/modal/modal.js';
@@ -15,18 +16,11 @@ import { PreviewComponent } from './components/preview/preview.js';
 
 async function bootstrap() {
   setupErrorBoundary();
-
-  // Request storage persistence
-  if (navigator.storage && navigator.storage.persist) {
-    navigator.storage.persist().catch(() => {});
-  }
-
-  // Register PWA service worker
+  if (navigator.storage?.persist) navigator.storage.persist().catch(() => {});
   if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-    navigator.serviceWorker.register('/sw.js').catch((err) => console.log('SW registration error:', err));
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
   }
 
-  // Initialize UI components
   new ToastComponent(document.getElementById('toast-root'));
   new ModalComponent(document.getElementById('modal-root'));
   new SidebarComponent(document.getElementById('sidebar'), document.getElementById('sidebar-backdrop'));
@@ -34,34 +28,35 @@ async function bootstrap() {
   new EditorComponent(document.getElementById('editor-wrapper'));
   new PreviewComponent(document.getElementById('preview-wrapper'));
 
-  // Load notes from IndexedDB
   let notes = await idb.getAll();
-
   if (!notes || notes.length === 0) {
-    const welcomeNote = {
+    const welcome = {
       id: 'welcome-note',
       title: 'Welcome to Notes PWA',
-      description: 'A quick guide to formatting, previewing, and PDF printing',
-      content: `# Welcome to Notes PWA\n\nA minimalist, offline-first note-taking app with real-time preview and multipage PDF export.\n\n## Quick Features\n- **Live Markdown**: Headings, **bold**, *italic*, lists, and code blocks.\n- **WYSIWYG Toolbar**: Use the top bar to format selected text quickly.\n- **Multipage PDF Export**: Click the printer icon to generate a clean PDF document.\n- **Search & Sort**: Filter notes instantly by title or content.\n- **Backup & Restore**: Use the cloud icons in the top bar to export or restore JSON backups.\n\n> "Simplicity is the ultimate sophistication."`,
+      description: 'Quick guide with #features, #markdown, and #shortcuts',
+      content: `# Welcome to Notes PWA\n\nA minimalist, offline-first notes app with real-time preview and multipage PDF export.\n\n## #Features\n- **Inline Tags**: Type #ideas or #work anywhere to filter your notes.\n- **Focus Mode**: Press Ctrl+Shift+F or click Zen to hide all toolbars.\n- **Trash Protection**: Safely restore notes or empty trash whenever needed.\n- **Drag & Drop**: Drop .md or .txt files directly onto the window.\n- **Multipage PDF**: Click the printer icon to print or save crisp vector PDFs.\n\n> "Simplicity is the ultimate sophistication."`,
       mode: 'markdown',
       isPinned: true,
+      trashed: false,
       createdAt: Date.now(),
       updatedAt: Date.now()
     };
-    await idb.put(welcomeNote);
-    notes = [welcomeNote];
+    await idb.put(welcome);
+    notes = [welcome];
   }
 
-  // Set initial store state
-  const lastActiveId = localStorage.getItem('notes_active_id');
-  const initialActiveId = notes.some((n) => n.id === lastActiveId) ? lastActiveId : notes[0]?.id || null;
-  const initialTheme = store.getState().theme;
-  document.documentElement.setAttribute('data-theme', initialTheme);
+  const lastActive = localStorage.getItem('notes_active_id');
+  const initialActive = notes.find((n) => n.id === lastActive && !n.trashed)?.id || notes.find((n) => !n.trashed)?.id || null;
+  document.documentElement.setAttribute('data-theme', store.getState().theme);
+  document.documentElement.setAttribute('data-font', store.getState().editorFont);
+  document.body.setAttribute('data-view', store.getState().viewMode);
+  store.setState({ notes, activeNoteId: initialActive });
 
-  const initialView = store.getState().viewMode;
-  document.body.setAttribute('data-view', initialView);
-
-  store.setState({ notes, activeNoteId: initialActiveId });
+  // PWA Quick capture check
+  if (new URLSearchParams(window.location.search).get('action') === 'new') {
+    eventBus.emit('note:create');
+    window.history.replaceState({}, '', '/');
+  }
 
   // Event handlers
   eventBus.on('note:select', ({ id }) => {
@@ -77,29 +72,61 @@ async function bootstrap() {
       content: '',
       mode: 'markdown',
       isPinned: false,
+      trashed: false,
       createdAt: Date.now(),
       updatedAt: Date.now()
     };
     await idb.put(newNote);
-    const currentNotes = [newNote, ...store.getState().notes];
-    store.setState({ notes: currentNotes, activeNoteId: newNote.id });
+    store.setState({ notes: [newNote, ...store.getState().notes], activeNoteId: newNote.id, showTrash: false });
     localStorage.setItem('notes_active_id', newNote.id);
-    eventBus.emit('toast:show', { message: 'New note created.', type: 'info' });
+    document.getElementById('note-title')?.focus();
   });
 
-  eventBus.on('note:delete', async ({ id }) => {
+  eventBus.on('note:trash', async ({ id }) => {
+    const state = store.getState();
+    const note = state.notes.find((n) => n.id === id);
+    if (!note) return;
+    const updated = { ...note, trashed: true, updatedAt: Date.now() };
+    await idb.put(updated);
+    const updatedNotes = state.notes.map((n) => (n.id === id ? updated : n));
+    const nextActive = updatedNotes.find((n) => !n.trashed)?.id || null;
+    store.setState({ notes: updatedNotes, activeNoteId: nextActive });
+    eventBus.emit('toast:show', { message: 'Moved to Trash.', type: 'info' });
+  });
+
+  eventBus.on('note:restore', async ({ id }) => {
+    const state = store.getState();
+    const note = state.notes.find((n) => n.id === id);
+    if (!note) return;
+    const updated = { ...note, trashed: false, updatedAt: Date.now() };
+    await idb.put(updated);
+    const updatedNotes = state.notes.map((n) => (n.id === id ? updated : n));
+    store.setState({ notes: updatedNotes, activeNoteId: updated.id });
+    eventBus.emit('toast:show', { message: 'Note restored.', type: 'success' });
+  });
+
+  eventBus.on('note:destroy', async ({ id }) => {
     await idb.delete(id);
     const updatedNotes = store.getState().notes.filter((n) => n.id !== id);
-    const nextActive = updatedNotes[0]?.id || null;
-    store.setState({ notes: updatedNotes, activeNoteId: nextActive });
-    if (nextActive) localStorage.setItem('notes_active_id', nextActive);
-    else localStorage.removeItem('notes_active_id');
-    eventBus.emit('toast:show', { message: 'Note deleted.', type: 'info' });
+    store.setState({ notes: updatedNotes, activeNoteId: updatedNotes.find((n) => n.trashed)?.id || null });
+    eventBus.emit('toast:show', { message: 'Permanently deleted.', type: 'info' });
   });
 
-  eventBus.on('notes:reloaded', async () => {
-    const refreshed = await idb.getAll();
-    store.setState({ notes: refreshed, activeNoteId: refreshed[0]?.id || null });
+  // Empty trash action
+  document.getElementById('empty-trash-btn')?.addEventListener('click', () => {
+    eventBus.emit('modal:confirm', {
+      title: 'Empty Trash',
+      message: 'All notes in Trash will be permanently deleted.',
+      confirmText: 'Empty Trash',
+      isDanger: true,
+      onConfirm: async () => {
+        const remaining = store.getState().notes.filter((n) => !n.trashed);
+        const trashed = store.getState().notes.filter((n) => n.trashed);
+        await Promise.all(trashed.map((n) => idb.delete(n.id)));
+        store.setState({ notes: remaining, activeNoteId: remaining[0]?.id || null });
+        eventBus.emit('toast:show', { message: 'Trash emptied.', type: 'info' });
+      }
+    });
   });
 
   // Global header actions
@@ -108,34 +135,23 @@ async function bootstrap() {
   });
 
   document.getElementById('theme-toggle').addEventListener('click', () => {
-    const currentTheme = store.getState().theme;
-    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    store.setState({ theme: nextTheme });
+    store.setState({ theme: store.getState().theme === 'dark' ? 'light' : 'dark' });
   });
 
-  document.getElementById('export-backup-btn').addEventListener('click', () => {
-    exportAllNotesAsJSON();
+  document.getElementById('exit-zen-btn').addEventListener('click', () => {
+    store.setState({ zenMode: false });
   });
 
+  document.getElementById('export-backup-btn').addEventListener('click', exportAllNotesAsJSON);
   document.getElementById('import-backup-input').addEventListener('change', async (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      await importNotesFromJSON(file);
+    if (e.target.files?.[0]) {
+      await importNotesFromJSON(e.target.files[0]);
       e.target.value = '';
     }
   });
 
-  // Global hotkeys
-  window.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'p') {
-      e.preventDefault();
-      const active = store.getActiveNote();
-      if (active) exportNoteToPDF(active);
-    } else if ((e.metaKey || e.ctrlKey) && e.key === 'n') {
-      e.preventDefault();
-      eventBus.emit('note:create');
-    }
-  });
+  setupDragAndDrop();
+  setupKeyboardShortcuts();
 }
 
 document.addEventListener('DOMContentLoaded', bootstrap);

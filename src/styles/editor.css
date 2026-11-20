@@ -9,17 +9,19 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
+  font-family: var(--font-sans);
 }
 
 .note-desc-input {
   font-size: 0.95rem;
   color: var(--text-secondary);
+  font-family: var(--font-sans);
 }
 
 .note-body-textarea {
   flex: 1;
   padding: var(--space-sm) var(--space-lg);
-  font-family: inherit;
+  font-family: var(--font-editor);
   font-size: 1rem;
   line-height: 1.6;
   color: var(--text-primary);
@@ -31,6 +33,7 @@
   padding: var(--space-md) var(--space-lg);
   font-size: 1rem;
   line-height: 1.7;
+  font-family: var(--font-editor);
 }
 
 .preview-content h1 { font-size: 1.8rem; margin: 0.8rem 0 0.4rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; }
