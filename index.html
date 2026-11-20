@@ -17,7 +17,7 @@
       <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
       
       <!-- Full-Height Sidebar Column -->
-      <aside id="sidebar" class="sidebar">
+      <aside id="sidebar" class="sidebar is-collapsed">
         <div class="sidebar-header">
           <div class="brand-section">
             <div class="brand-logo-badge">
@@ -81,11 +81,6 @@
             <button id="sidebar-toggle" class="icon-btn-sm" title="Toggle Sidebar" aria-label="Toggle Sidebar">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
-            <div class="segmented-control">
-              <button data-format="plain" class="segmented-btn">Plain</button>
-              <button data-format="markdown" class="segmented-btn is-active">MD</button>
-              <button data-format="html" class="segmented-btn">HTML</button>
-            </div>
             <div class="save-status-group">
               <span id="status-dot" class="status-dot"></span>
               <span id="save-status">Saved</span>
@@ -136,10 +131,16 @@
           </div>
 
           <div class="toolbar-group">
-            <div class="segmented-control">
+            <div class="segmented-control" aria-label="View Mode">
               <button class="segmented-btn" data-cmd="view-edit" title="Editor Only">Edit</button>
               <button class="segmented-btn is-active" data-cmd="view-split" title="Split View">Split</button>
               <button class="segmented-btn" data-cmd="view-preview" title="Preview Only">Preview</button>
+            </div>
+            <div class="divider"></div>
+            <div class="segmented-control" aria-label="Format Mode">
+              <button data-format="plain" class="segmented-btn" title="Plain Text">Plain</button>
+              <button data-format="markdown" class="segmented-btn is-active" title="Markdown">MD</button>
+              <button data-format="html" class="segmented-btn" title="HTML">HTML</button>
             </div>
             <div class="divider"></div>
             <button class="toolbar-btn" data-cmd="toggle-zen" title="Focus Mode (Ctrl+Shift+F)">Zen</button>

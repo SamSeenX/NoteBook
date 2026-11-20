@@ -14,7 +14,7 @@ class Store {
       viewMode: localStorage.getItem('notes_view_mode') || 'split',
       editorFont: localStorage.getItem('notes_font') || 'sans',
       theme: localStorage.getItem('notes_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
-      isSidebarOpen: window.innerWidth > 768
+      isSidebarOpen: localStorage.getItem('notes_sidebar_open') === 'true'
     };
     this.listeners = new Set();
   }
@@ -59,6 +59,9 @@ class Store {
     }
     if (partial.zenMode !== undefined) {
       document.body.classList.toggle('zen-mode', partial.zenMode);
+    }
+    if (partial.isSidebarOpen !== undefined) {
+      localStorage.setItem('notes_sidebar_open', String(partial.isSidebarOpen));
     }
 
     this.notify(changedKeys);

@@ -26,6 +26,16 @@ export class SidebarComponent {
       store.setState({ searchQuery: e.target.value });
     });
 
+    this.searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (this.searchInput.value) {
+          this.searchInput.value = '';
+          store.setState({ searchQuery: '' });
+        }
+        this.searchInput.blur();
+      }
+    });
+
     this.sortSelect.addEventListener('change', (e) => {
       store.setState({ sortBy: e.target.value });
     });
