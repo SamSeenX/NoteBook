@@ -12,13 +12,13 @@
 - **Data Portability**: Full JSON export and JSON import with validation and merge safety.
 - **Drag & Drop**: Native window drop listener for instant `.md` and `.txt` file ingestion.
 
-## 3. Editorial UI/UX & Design System
+## 3. UI/UX Architecture & Control Placement
+- **Contextual View Mode Placement**: `Edit | Split | Preview` controls are anchored directly on `#toolbar` right above the active writing and preview panes.
+- **Responsive Sidebar Transitions**: Hamburger toggle smoothly controls slide-out drawers on mobile viewports and zero-width margin collapse on desktop screens.
 - **Curated Font Trio**: Integrated `Inter` (UI), `Newsreader` (Editorial Serif), and `JetBrains Mono` (Code) with live 1-click cycling.
 - **Indigo & Slate Harmony**: Modern indigo brand accents (`#4f46e5` / `#6366f1`) paired with slate surfaces, subtle card borders, and dark canvas (`#0e1015`).
-- **Segmented Header Controls**: Symmetrical segmented pills for View Modes (`Edit | Split | Preview`) and Note Formats (`Plain | MD | HTML`).
 - **Interactive Checklists**: Real-time toggling of markdown task checkboxes directly within the rendered preview pane.
 - **Visual PDF Page Breaks**: Dashed print divider with a centered uppercase badge indicating exact page breaks for vector multipage PDF generation.
-- **Card Hierarchy**: Distinctive format badges (MD in indigo, HTML in amber, TXT in slate), 2-line clamped summaries, relative time labels, and hover action buttons.
 
 ## 4. Roadmap
 - [x] Architecture planning and scoping
@@ -35,4 +35,4 @@
 - [x] Font typography toggle (sans / serif / mono)
 - [x] Interactive markdown checklists in preview
 - [x] Visual PDF page break dividers
-- [x] Editorial UI/UX redesign surpassing standalone templates
+- [x] Responsive hamburger sidebar collapse and contextual toolbar controls

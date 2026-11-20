@@ -29,13 +29,6 @@
         </div>
       </div>
 
-      <!-- Center Segmented View Switcher -->
-      <div class="segmented-control">
-        <button class="segmented-btn" data-cmd="view-edit" title="Editor Only">Edit</button>
-        <button class="segmented-btn is-active" data-cmd="view-split" title="Split View">Split</button>
-        <button class="segmented-btn" data-cmd="view-preview" title="Preview Only">Preview</button>
-      </div>
-
       <!-- Right Header Actions -->
       <div class="header-actions">
         <div class="segmented-control" style="margin-right:4px;">
@@ -139,7 +132,14 @@
             </button>
           </div>
 
+          <!-- Segmented View Mode directly above Editor & Preview -->
           <div class="toolbar-group">
+            <div class="segmented-control">
+              <button class="segmented-btn" data-cmd="view-edit" title="Editor Only">Edit</button>
+              <button class="segmented-btn is-active" data-cmd="view-split" title="Split View">Split</button>
+              <button class="segmented-btn" data-cmd="view-preview" title="Preview Only">Preview</button>
+            </div>
+            <div class="divider"></div>
             <button class="toolbar-btn" data-cmd="toggle-zen" title="Focus Mode (Ctrl+Shift+F)">Zen</button>
           </div>
         </div>

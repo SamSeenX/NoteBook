@@ -1,9 +1,8 @@
 import { store } from '../../core/store.js';
 import { eventBus } from '../../core/event-bus.js';
 import { idb } from '../../utils/idb.js';
-import { getAllUniqueTags } from '../../utils/tags.js';
 import { renderNoteItem } from './note-item.js';
-import { escapeHTML } from '../../utils/sanitize.js';
+import { renderTagsBar } from './tags-bar.js';
 
 export class SidebarComponent {
   constructor(asideElement, backdropElement) {
@@ -18,6 +17,7 @@ export class SidebarComponent {
     this.trashBanner = asideElement.querySelector('#trash-banner');
 
     this.bindEvents();
+    this.updateSidebarVisibility(store.getState().isSidebarOpen);
     this.render();
   }
 
@@ -49,7 +49,6 @@ export class SidebarComponent {
       });
     }
 
-    // Delegation on tags bar
     this.tagsBar.addEventListener('click', (e) => {
       const pill = e.target.closest('[data-tag]');
       if (!pill) return;
@@ -58,7 +57,6 @@ export class SidebarComponent {
       store.setState({ activeTag: current === tag ? null : tag });
     });
 
-    // Delegation on notes list
     this.listContainer.addEventListener('click', async (e) => {
       const pinBtn = e.target.closest('[data-action="pin"]');
       if (pinBtn) {
@@ -94,7 +92,6 @@ export class SidebarComponent {
       }
     });
 
-    // Store state subscriber
     store.subscribe((state, changedKeys) => {
       if (
         changedKeys.includes('notes') ||
@@ -111,6 +108,10 @@ export class SidebarComponent {
         this.updateSidebarVisibility(state.isSidebarOpen);
       }
     });
+
+    window.addEventListener('resize', () => {
+      this.updateSidebarVisibility(store.getState().isSidebarOpen);
+    });
   }
 
   async togglePin(id) {
@@ -124,34 +125,19 @@ export class SidebarComponent {
   }
 
   updateSidebarVisibility(isOpen) {
-    this.aside.classList.toggle('is-open', isOpen);
-    if (this.backdrop) this.backdrop.classList.toggle('is-active', isOpen);
-  }
-
-  renderTags() {
-    const { notes, activeTag, showTrash } = store.getState();
-    if (showTrash) {
-      this.tagsBar.style.display = 'none';
-      return;
+    if (window.innerWidth <= 768) {
+      this.aside.classList.toggle('is-open', isOpen);
+      this.aside.classList.remove('is-collapsed');
+      if (this.backdrop) this.backdrop.classList.toggle('is-active', isOpen);
+    } else {
+      this.aside.classList.remove('is-open');
+      this.aside.classList.toggle('is-collapsed', !isOpen);
+      if (this.backdrop) this.backdrop.classList.remove('is-active');
     }
-    const tags = getAllUniqueTags(notes);
-    if (tags.length === 0) {
-      this.tagsBar.style.display = 'none';
-      return;
-    }
-    this.tagsBar.style.display = 'flex';
-    this.tagsBar.innerHTML = `
-      <button class="tag-pill ${!activeTag ? 'is-active' : ''}" data-tag="">All</button>
-      ${tags.map((t) => `
-        <button class="tag-pill ${activeTag === t.tag ? 'is-active' : ''}" data-tag="${escapeHTML(t.tag)}">
-          #${escapeHTML(t.tag)} <span class="tag-pill-count">${t.count}</span>
-        </button>
-      `).join('')}
-    `;
   }
 
   render() {
-    this.renderTags();
+    renderTagsBar(this.tagsBar);
     const { showTrash, activeNoteId } = store.getState();
     const filtered = store.getFilteredNotes();
 
