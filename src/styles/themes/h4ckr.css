@@ -1,0 +1,106 @@
+/* H4CKr Theme - Matrix Phosphor Green & Amber Terminal */
+[data-style="h4ckr"] {
+  --font-sans: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+  --font-editor: var(--font-sans);
+
+  /* Light Amber Terminal Palette */
+  --bg-primary: #fffbf0;
+  --bg-secondary: #f6eedb;
+  --bg-tertiary: #ebdec0;
+  --bg-elevated: #ffffff;
+  --bg-hover: #e2d1ad;
+  --border-color: rgba(180, 83, 9, 0.4);
+  --border-subtle: rgba(180, 83, 9, 0.25);
+
+  --text-primary: #5c3000;
+  --text-secondary: #7c4400;
+  --text-muted: #9a6015;
+  --text-on-accent: #ffffff;
+
+  --accent-color: #d97706;
+  --accent-hover: #b45309;
+  --accent-subtle: #fef3c7;
+  --accent-border: #f59e0b;
+  --accent-ring: rgba(217, 119, 6, 0.3);
+
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 5px;
+  --radius-full: 4px;
+
+  --shadow-xs: 1px 1px 0px rgba(92, 48, 0, 0.15);
+  --shadow-sm: 2px 2px 0px rgba(92, 48, 0, 0.2);
+  --shadow-md: 3px 3px 0px rgba(92, 48, 0, 0.25);
+  --shadow-lg: 4px 4px 0px rgba(92, 48, 0, 0.3);
+}
+
+[data-style="h4ckr"][data-theme="dark"] {
+  /* Dark Phosphor CRT Matrix Green */
+  --bg-primary: #040905;
+  --bg-secondary: #071209;
+  --bg-tertiary: #0b1a0e;
+  --bg-elevated: #0f2413;
+  --bg-hover: #14301a;
+  --border-color: rgba(0, 255, 102, 0.35);
+  --border-subtle: rgba(0, 255, 102, 0.2);
+
+  --text-primary: #00ff66;
+  --text-secondary: #26e677;
+  --text-muted: #1f9952;
+  --text-on-accent: #040905;
+
+  --accent-color: #00ff66;
+  --accent-hover: #33ff85;
+  --accent-subtle: rgba(0, 255, 102, 0.15);
+  --accent-border: #00ff66;
+  --accent-ring: rgba(0, 255, 102, 0.4);
+
+  --shadow-xs: 0 0 6px rgba(0, 255, 102, 0.2);
+  --shadow-sm: 0 0 10px rgba(0, 255, 102, 0.25);
+  --shadow-md: 0 0 16px rgba(0, 255, 102, 0.3);
+  --shadow-lg: 0 0 24px rgba(0, 255, 102, 0.35);
+}
+
+/* CRT Scanlines Overlay */
+[data-style="h4ckr"][data-theme="dark"] #app {
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.25) 0px,
+      rgba(0, 0, 0, 0.25) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+}
+
+[data-style="h4ckr"][data-theme="dark"] .workspace-header,
+[data-style="h4ckr"][data-theme="dark"] .sidebar-header {
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 1px 8px rgba(0, 255, 102, 0.15);
+}
+
+/* Monospace Command Badges & Buttons */
+[data-style="h4ckr"] .btn-new-header,
+[data-style="h4ckr"] .btn-primary {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  border: 1px solid var(--accent-color);
+}
+
+[data-style="h4ckr"][data-theme="dark"] .btn-new-header,
+[data-style="h4ckr"][data-theme="dark"] .btn-primary {
+  box-shadow: 0 0 8px rgba(0, 255, 102, 0.3);
+}
+
+[data-style="h4ckr"][data-theme="dark"] .note-item.is-active {
+  background: var(--bg-elevated);
+  border: 1px solid var(--accent-color);
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.25), inset 0 0 8px rgba(0, 255, 102, 0.1);
+}
+
+[data-style="h4ckr"][data-theme="dark"] .note-title-input {
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+}
