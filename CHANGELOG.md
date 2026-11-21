@@ -2,6 +2,11 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.5.1] - 2026-11-21
+### Enhanced
+- Extreme Resin Theme: Introduced an ambient liquid caustic mesh gradient with multi-color pools, high-saturation frosted glass refraction panels, and floating glass cards
+- Authentic Longhorn Aero Theme: Implemented the iconic Windows Longhorn 50% split-reflection Aero titlebars, Vista Explorer navigation pane, and glossy jelly buttons with specular shines
+
 ## [1.5.0] - 2026-11-21
 ### Added
 - Folio Default Theme: Promoted the warm organic botanical Folio theme (ivory paper, forest emerald accents) to the default app style

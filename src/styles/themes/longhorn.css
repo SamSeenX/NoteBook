@@ -1,102 +1,123 @@
-/* Longhorn Theme - Windows Vista Aero Glass */
+/* Longhorn Theme - Windows Longhorn Build 4074 & Vista Aero Glass */
 [data-style="longhorn"] {
   --font-sans: 'Segoe UI', Tahoma, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-editor: var(--font-sans);
 
-  /* Light Aero Glass Palette */
   --bg-primary: #ffffff;
   --bg-secondary: #f0f4f8;
-  --bg-tertiary: #e3ebf2;
+  --bg-tertiary: #e2ebf2;
   --bg-elevated: #ffffff;
-  --bg-hover: #dce7f0;
-  --border-color: #8daec4;
-  --border-subtle: #b6cddb;
+  --bg-hover: #dbe8f2;
+  --border-color: #6998b6;
+  --border-subtle: #9fc1d6;
 
-  --text-primary: #111e28;
-  --text-secondary: #274359;
-  --text-muted: #577387;
+  --text-primary: #0e1b24;
+  --text-secondary: #223f54;
+  --text-muted: #537287;
   --text-on-accent: #ffffff;
 
   --accent-color: #1a7fb8;
   --accent-hover: #156da0;
-  --accent-subtle: #dff0fa;
-  --accent-border: #5fa5cd;
-  --accent-ring: rgba(26, 127, 184, 0.25);
+  --accent-subtle: #d8edf8;
+  --accent-border: #4d9ac6;
+  --accent-ring: rgba(26, 127, 184, 0.3);
 
   --radius-xs: 3px;
-  --radius-sm: 5px;
-  --radius-md: 7px;
-  --radius-lg: 10px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
   --radius-full: 9999px;
 
-  --shadow-xs: 0 1px 2px rgba(17, 30, 40, 0.08);
-  --shadow-sm: 0 2px 4px rgba(17, 30, 40, 0.12);
-  --shadow-md: 0 4px 10px rgba(17, 30, 40, 0.15);
-  --shadow-lg: 0 8px 18px rgba(17, 30, 40, 0.18);
+  --shadow-xs: 0 1px 2px rgba(14, 27, 36, 0.1);
+  --shadow-sm: 0 2px 5px rgba(14, 27, 36, 0.15);
+  --shadow-md: 0 5px 12px rgba(14, 27, 36, 0.18);
+  --shadow-lg: 0 10px 24px rgba(14, 27, 36, 0.22);
 }
 
 [data-style="longhorn"][data-theme="dark"] {
-  /* Dark Aero Glass Palette - Vista Ultimate Obsidian Aero */
-  --bg-primary: #10151b;
-  --bg-secondary: #0c1015;
-  --bg-tertiary: #171f28;
-  --bg-elevated: #161e27;
-  --bg-hover: #222d3a;
-  --border-color: #2b3d4f;
-  --border-subtle: #1e2c39;
+  --bg-primary: #0f151c;
+  --bg-secondary: #0a0e14;
+  --bg-tertiary: #16202a;
+  --bg-elevated: #151e28;
+  --bg-hover: #1f2b38;
+  --border-color: #2b4155;
+  --border-subtle: #1c2b38;
 
-  --text-primary: #e6f0f8;
-  --text-secondary: #9cb5c7;
-  --text-muted: #648094;
+  --text-primary: #edf4fa;
+  --text-secondary: #9cb8cc;
+  --text-muted: #648196;
   --text-on-accent: #ffffff;
 
   --accent-color: #29b6f6;
   --accent-hover: #4fc3f7;
-  --accent-subtle: #132a38;
-  --accent-border: #1d5f85;
-  --accent-ring: rgba(41, 182, 246, 0.3);
+  --accent-subtle: #112d40;
+  --accent-border: #1a6d9b;
+  --accent-ring: rgba(41, 182, 246, 0.35);
 
-  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 6px 14px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 12px 22px rgba(0, 0, 0, 0.7);
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 3px 8px rgba(0, 0, 0, 0.55);
+  --shadow-md: 0 8px 18px rgba(0, 0, 0, 0.65);
+  --shadow-lg: 0 14px 28px rgba(0, 0, 0, 0.75);
 }
 
-/* Classic Windows Vista Aero Header Sheen */
+/* Iconic Longhorn 50% Split Aero Glass Titlebars */
 [data-style="longhorn"] .workspace-header,
 [data-style="longhorn"] .sidebar-header {
-  background: linear-gradient(
-    180deg,
-    rgba(235, 244, 250, 0.95) 0%,
-    rgba(208, 230, 244, 0.85) 48%,
-    rgba(188, 219, 238, 0.9) 52%,
-    rgba(215, 238, 252, 0.95) 100%
-  );
+  background: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(220, 240, 254, 0.5) 49%, rgba(138, 196, 236, 0.6) 50%, rgba(182, 224, 250, 0.75) 100%),
+    radial-gradient(ellipse at 50% 0%, rgba(80, 190, 255, 0.6) 0%, transparent 75%),
+    #cbe3f5;
   border-bottom: 1px solid var(--border-color);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 [data-style="longhorn"][data-theme="dark"] .workspace-header,
 [data-style="longhorn"][data-theme="dark"] .sidebar-header {
-  background: linear-gradient(
-    180deg,
-    rgba(38, 48, 58, 0.95) 0%,
-    rgba(22, 28, 35, 0.88) 48%,
-    rgba(14, 18, 23, 0.92) 52%,
-    rgba(27, 35, 43, 0.95) 100%
-  );
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 6px rgba(0, 0, 0, 0.4);
+  background: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(68, 84, 100, 0.3) 49%, rgba(12, 18, 26, 0.75) 50%, rgba(28, 42, 56, 0.5) 100%),
+    radial-gradient(ellipse at 50% 0%, rgba(41, 182, 246, 0.25) 0%, transparent 75%),
+    #11161e;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.4);
 }
 
-/* Vista Glossy Jelly Button Accents */
+/* Vista Sidebar Navigation Pane */
+[data-style="longhorn"] .sidebar {
+  background: linear-gradient(180deg, rgba(234, 242, 248, 0.96) 0%, rgba(246, 250, 253, 0.98) 100%);
+  border-right: 1px solid var(--border-color);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.85);
+}
+
+[data-style="longhorn"] .toolbar {
+  background: linear-gradient(180deg, #fbfcfe 0%, #edf3f8 100%);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: inset 0 1px 0 #ffffff;
+}
+
+/* Active Note Aero Glass Selection */
+[data-style="longhorn"] .note-item.is-active {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(222, 242, 254, 0.75) 49%, rgba(162, 214, 246, 0.8) 50%, rgba(202, 234, 252, 0.9) 100%);
+  border: 1px solid #5a96bf;
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Glossy Aero Jelly Buttons */
 [data-style="longhorn"] .btn-new-header,
 [data-style="longhorn"] .btn-primary {
-  background: linear-gradient(180deg, #3aa0dd 0%, #1a7fb8 50%, #156da0 51%, #2488c2 100%);
-  border: 1px solid #146290;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.15);
+  background: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.15) 49%, rgba(0, 0, 0, 0.08) 50%, rgba(26, 127, 184, 0.3) 100%),
+    #1a7fb8;
+  border: 1px solid #145980;
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.18);
+  font-weight: 600;
 }
 
 [data-style="longhorn"] .btn-new-header:hover,
 [data-style="longhorn"] .btn-primary:hover {
-  background: linear-gradient(180deg, #4cb0ec 0%, #228ecb 50%, #1a79b2 51%, #3399d4 100%);
+  background: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 49%, rgba(0, 0, 0, 0.05) 50%, rgba(35, 148, 212, 0.35) 100%),
+    #2193d4;
 }
