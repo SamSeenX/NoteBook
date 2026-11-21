@@ -34,9 +34,9 @@
 
   /* Layout Geometry */
   --sidebar-width: 320px;
-  --header-height: 54px;
-  --toolbar-height: 48px;
-  --status-height: 32px;
+  --header-height: 46px;
+  --toolbar-height: 40px;
+  --status-height: 30px;
   --canvas-max-width: 760px;
   --touch-target: 48px;
 

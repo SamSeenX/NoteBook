@@ -23,13 +23,17 @@
 }
 
 .toolbar-btn {
-  min-height: 30px;
-  min-width: 30px;
-  padding: 4px 7px;
+  min-height: 28px;
+  min-width: 28px;
+  height: 28px;
+  padding: 2px 7px;
   border-radius: var(--radius-xs);
   color: var(--text-secondary);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: all var(--transition-fast);
 }
 
@@ -55,9 +59,10 @@
 }
 
 .segmented-btn {
-  min-height: 26px;
-  padding: 2px 9px;
-  font-size: 0.78rem;
+  min-height: 24px;
+  height: 24px;
+  padding: 1px 8px;
+  font-size: 0.76rem;
   font-weight: 500;
   color: var(--text-secondary);
   border-radius: var(--radius-xs);
@@ -98,8 +103,8 @@
 /* Export Dropdown Popover */
 .dropdown-menu {
   position: absolute;
-  right: 12px;
-  top: 48px;
+  right: 0;
+  top: 36px;
   width: 220px;
   background: var(--bg-elevated);
   border: 1px solid var(--border-color);
@@ -118,7 +123,7 @@
 
 .dropdown-item {
   width: 100%;
-  padding: 8px 10px;
+  padding: 6px 10px;
   font-size: 0.8rem;
   border-radius: var(--radius-xs);
   display: flex;
@@ -126,7 +131,7 @@
   justify-content: space-between;
   color: var(--text-primary);
   text-align: left;
-  min-height: 32px;
+  min-height: 30px;
 }
 
 .dropdown-item:hover {
@@ -142,14 +147,14 @@
 .case-menu {
   left: 0;
   right: auto;
-  top: 36px;
+  top: 32px;
   width: 175px;
 }
 
 .style-menu {
   right: 0;
   left: auto;
-  top: 42px;
+  top: 36px;
   width: 170px;
 }
 
