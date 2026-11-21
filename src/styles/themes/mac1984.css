@@ -39,6 +39,8 @@
   --shadow-sm: 2px 2px 0px #000000;
   --shadow-md: 3px 3px 0px #000000;
   --shadow-lg: 4px 4px 0px #000000;
+
+  --mac-pinstripe: rgba(0, 0, 0, 0.12);
 }
 
 [data-style="mac1984"][data-theme="dark"] {
@@ -70,6 +72,8 @@
   --shadow-sm: 2px 2px 0px #ffffff;
   --shadow-md: 3px 3px 0px #ffffff;
   --shadow-lg: 4px 4px 0px #ffffff;
+
+  --mac-pinstripe: rgba(255, 255, 255, 0.14);
 }
 
 /* Classic System 1 Pinstripe Header Accents */
@@ -79,10 +83,17 @@
     to bottom,
     var(--bg-secondary) 0px,
     var(--bg-secondary) 2px,
-    var(--border-color) 2px,
-    var(--border-color) 3px
+    var(--mac-pinstripe) 2px,
+    var(--mac-pinstripe) 3px
   );
   border-bottom: 2px solid var(--border-color);
+}
+
+[data-style="mac1984"] .brand-title,
+[data-style="mac1984"] .save-status-group {
+  background: var(--bg-secondary);
+  padding: 1px 4px;
+  border-radius: 2px;
 }
 
 [data-style="mac1984"] .btn-primary,
