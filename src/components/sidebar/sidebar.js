@@ -3,7 +3,6 @@ import { eventBus } from '../../core/event-bus.js';
 import { idb } from '../../utils/idb.js';
 import { renderNoteItem } from './note-item.js';
 import { renderTagsBar } from './tags-bar.js';
-import { renderFoldersBar } from './folders-bar.js';
 import { setupSortMenu } from './sort-menu.js';
 
 export class SidebarComponent {
@@ -13,7 +12,6 @@ export class SidebarComponent {
     this.listContainer = asideElement.querySelector('#notes-list');
     this.searchInput = asideElement.querySelector('#search-input');
     this.newNoteBtn = document.getElementById('new-note-btn');
-    this.foldersBar = asideElement.querySelector('#folders-bar');
     this.tagsBar = asideElement.querySelector('#tags-bar');
     this.trashToggleBtn = asideElement.querySelector('#trash-toggle-btn');
     this.trashBanner = asideElement.querySelector('#trash-banner');
@@ -110,8 +108,6 @@ export class SidebarComponent {
         changedKeys.includes('searchQuery') ||
         changedKeys.includes('sortBy') ||
         changedKeys.includes('activeTag') ||
-        changedKeys.includes('folders') ||
-        changedKeys.includes('activeFolder') ||
         changedKeys.includes('showTrash')
       ) {
         this.render();
@@ -148,7 +144,6 @@ export class SidebarComponent {
   }
 
   render() {
-    renderFoldersBar(this.foldersBar);
     renderTagsBar(this.tagsBar);
     const { showTrash, activeNoteId } = store.getState();
     const filtered = store.getFilteredNotes();

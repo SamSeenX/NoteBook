@@ -8,8 +8,6 @@ class Store {
       activeNoteId: null,
       searchQuery: '',
       activeTag: null,
-      folders: JSON.parse(localStorage.getItem('notes_folders') || '["Work", "Personal", "Ideas"]'),
-      activeFolder: localStorage.getItem('notes_active_folder') || null,
       showTrash: false,
       zenMode: false,
       sortBy: localStorage.getItem('notes_sort_by') || 'updated_desc',
@@ -70,13 +68,6 @@ class Store {
     if (partial.isSidebarOpen !== undefined) {
       localStorage.setItem('notes_sidebar_open', String(partial.isSidebarOpen));
     }
-    if (partial.folders !== undefined) {
-      localStorage.setItem('notes_folders', JSON.stringify(partial.folders));
-    }
-    if (partial.activeFolder !== undefined) {
-      if (partial.activeFolder) localStorage.setItem('notes_active_folder', partial.activeFolder);
-      else localStorage.removeItem('notes_active_folder');
-    }
 
     this.notify(changedKeys);
   }
@@ -87,19 +78,10 @@ class Store {
   }
 
   getFilteredNotes() {
-    const { notes, searchQuery, sortBy, activeTag, activeFolder, showTrash } = this.state;
+    const { notes, searchQuery, sortBy, activeTag, showTrash } = this.state;
 
     // Filter by active vs trashed
     let filtered = notes.filter((n) => (showTrash ? Boolean(n.trashed) : !n.trashed));
-
-    // Filter by folder if selected
-    if (!showTrash && activeFolder) {
-      if (activeFolder === 'Uncategorized') {
-        filtered = filtered.filter((n) => !n.folder || n.folder === 'Uncategorized');
-      } else {
-        filtered = filtered.filter((n) => n.folder === activeFolder);
-      }
-    }
 
     // Filter by tag if selected
     if (!showTrash && activeTag) {
