@@ -2,6 +2,12 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.5.0] - 2026-11-21
+### Added
+- Folio Default Theme: Promoted the warm organic botanical Folio theme (ivory paper, forest emerald accents) to the default app style
+- Resin Theme (Liquid Glass): Liquid glassmorphic theme with frosted acrylic blur, refraction effects, luminous cyan-blue accents, and glossy highlights
+- Longhorn Theme (Windows Vista Aero Glass): Classic Windows Vista Aero theme featuring gradient aero glass header sheen, Segoe UI typography, and glossy jelly button styling
+
 ## [1.4.5] - 2026-11-21
 ### Fixed
 - Header New Note Button Height: Overrode global button touch target (`min-height: 48px`) by setting `min-height: 22px; min-width: auto;`, preventing the button from stretching to the full height of the workspace header
