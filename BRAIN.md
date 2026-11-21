@@ -17,7 +17,8 @@
 - **Sidebar State Persistence**: Sidebar defaults to collapsed and stores user toggle preference in `localStorage.notes_sidebar_open`.
 - **Keyboard-Centric Navigation**: `Ctrl+K` / `Cmd+K` automatically expands the sidebar and focuses the search input with instant query selection, while `Escape` inside search collapses the sidebar panel.
 - **Unified Toolbar Controls**: Format switches (`Plain | MD | HTML`) sit directly beside the Zen mode button and View Mode controls inside the workspace toolbar.
-- **Anchored Workspace Header**: The hamburger sidebar toggle is anchored to the top-left of the workspace header, keeping controls stable during collapse and expand.
+- **Persistent Edge Sidebar Toggle**: The hamburger sidebar toggle is locked at the top-left edge of the app window (`left: 12px; top: 9px`) across both collapsed and expanded states, allowing 1-click repeated toggling without mouse movement.
+- **Text Case Converter**: Integrated toolbar "aA" dropdown supporting 8 case formats with automatic selection or word-under-cursor targeting.
 - **Fluid Canvas Stabilization**: Smooth CSS transition easing (`transition: max-width, padding`) prevents jumping when toggling between side-by-side and expanded writing views.
 - **Curated Font Trio**: Integrated `Inter` (UI), `Newsreader` (Editorial Serif), and `JetBrains Mono` (Code) with live 1-click cycling.
 - **Indigo & Slate Harmony**: Modern indigo brand accents (`#4f46e5` / `#6366f1`) paired with slate surfaces, subtle card borders, and dark canvas (`#0e1015`).

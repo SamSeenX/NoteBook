@@ -1,6 +1,7 @@
 body.zen-mode .app-header,
 body.zen-mode .sidebar,
 body.zen-mode .sidebar-backdrop,
+body.zen-mode .persistent-sidebar-toggle,
 body.zen-mode .toolbar,
 body.zen-mode .status-bar,
 body.zen-mode .preview-wrapper {

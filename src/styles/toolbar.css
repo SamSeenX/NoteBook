@@ -133,3 +133,21 @@
   background: var(--bg-hover);
   color: var(--accent-color);
 }
+
+.case-dropdown-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.case-menu {
+  left: 0;
+  right: auto;
+  top: 36px;
+  width: 175px;
+}
+
+.case-hint {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}

@@ -2,6 +2,12 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.3.5] - 2026-11-20
+### Added
+- Persistent edge hamburger button: locked in place at the top-left edge across both open and collapsed states so users can click again in the exact same spot to close
+- Text case conversion dropdown menu ("aA") in the toolbar with 8 conversions (UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, and kebab-case)
+- Modularized export dropdown handling into `export-menu.js` to keep toolbar logic under strict file bounds
+
 ## [1.3.4] - 2026-11-20
 ### Added
 - Configured `Escape` key inside the search bar to immediately collapse the sidebar panel, blur the input, and clear active search queries
