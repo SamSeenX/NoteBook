@@ -2,6 +2,11 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.4.4] - 2026-11-21
+### Fixed
+- Translucent Mac Theme Pinstripes: Softened retro header horizontal lines to a subtle translucent tint (`rgba(..., 0.12-0.14)`), preventing pinstripes from cutting across top status bar text and icons
+- Compact New Button: Reduced header "+ New" button height to 20px with smaller padding and typography for a discreet, balanced fit beside the status indicator
+
 ## [1.4.3] - 2026-11-21
 ### Fixed
 - Flash of Unstyled Content (FOUC): Synchronously linked `main.css` in `<head>` so stylesheet loads before HTML rendering starts
