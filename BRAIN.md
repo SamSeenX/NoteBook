@@ -27,6 +27,7 @@
 - **Tri-Theme Architecture**: Decoupled design styles (`data-style="studio" | "folio" | "mac1984"`) from color modes (`data-theme="light" | "dark"`), giving Studio, Folio, and Mac 1984 dedicated, scoped light and dark presentations.
 - **Modular Stylesheets**: Extracted theme-specific tokens into `themes/folio.css` and `themes/mac1984.css` guaranteeing zero file exceeds the strict 200-line limit.
 - **Compact Chrome Density**: Compacted header height (46px) and toolbar (40px) with matching 30px icon buttons, eliminating oversized button bloat.
+- **Unified Sidebar Action Row**: Consolidated search, custom sort popover, and "+ New" button into a single 30px row, leaving the brand header uncluttered and eliminating the separate browser select row.
 
 ## 4. Roadmap
 - [x] Architecture planning and scoping
