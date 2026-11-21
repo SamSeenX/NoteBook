@@ -32,6 +32,15 @@
   transition: all var(--transition-base);
 }
 
+.persistent-sidebar-toggle {
+  position: absolute;
+  left: 12px;
+  top: calc((var(--header-height) - 30px) / 2);
+  z-index: 30;
+  width: 30px;
+  height: 30px;
+}
+
 .workspace-header {
   height: var(--header-height);
   min-height: var(--header-height);
@@ -42,6 +51,11 @@
   background-color: var(--bg-primary);
   border-bottom: 1px solid var(--border-color);
   z-index: 20;
+  transition: padding-left var(--transition-base);
+}
+
+.sidebar.is-collapsed ~ .workspace .workspace-header {
+  padding-left: 50px;
 }
 
 .header-left, .header-right {
@@ -89,6 +103,10 @@
 }
 
 @media (max-width: 768px) {
+  .workspace-header {
+    padding-left: 50px !important;
+  }
+
   [data-view="split"] .editor-wrapper,
   [data-view="split"] .preview-wrapper {
     width: 100%;

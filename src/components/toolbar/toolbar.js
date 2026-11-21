@@ -1,11 +1,13 @@
 import { store } from '../../core/store.js';
 import { eventBus } from '../../core/event-bus.js';
-import { exportNoteToPDF } from '../../utils/pdf.js';
+import { transformSelectionCase } from '../../utils/case-converters.js';
+import { setupExportMenu } from '../../utils/export-menu.js';
 
 export class ToolbarComponent {
   constructor(toolbarElement) {
     this.toolbar = toolbarElement;
     this.dropdown = document.querySelector('#export-dropdown');
+    this.caseDropdown = document.querySelector('#case-dropdown');
     this.fontCycleBtn = document.querySelector('#btn-font-cycle');
     this.bindEvents();
     this.syncState();
@@ -42,13 +44,29 @@ export class ToolbarComponent {
       this.dropdown?.classList.toggle('is-open');
     });
 
+    // Case transform dropdown toggle
+    document.querySelector('#btn-case-menu')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.caseDropdown?.classList.toggle('is-open');
+    });
+
+    this.caseDropdown?.addEventListener('click', (e) => {
+      const item = e.target.closest('[data-case]');
+      if (!item) return;
+      transformSelectionCase(item.dataset.case);
+      this.caseDropdown.classList.remove('is-open');
+    });
+
     document.addEventListener('click', (e) => {
       if (this.dropdown && !this.dropdown.contains(e.target) && !e.target.closest('#btn-export-menu')) {
         this.dropdown.classList.remove('is-open');
       }
+      if (this.caseDropdown && !this.caseDropdown.contains(e.target) && !e.target.closest('#btn-case-menu')) {
+        this.caseDropdown.classList.remove('is-open');
+      }
     });
 
-    this.bindDropdownActions();
+    setupExportMenu(this.dropdown);
 
     store.subscribe((state, changedKeys) => {
       if (
@@ -60,58 +78,6 @@ export class ToolbarComponent {
       ) {
         this.syncState();
       }
-    });
-  }
-
-  bindDropdownActions() {
-    const download = (filename, content, type) => {
-      const blob = new Blob([content], { type });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    };
-
-    document.querySelector('#action-export-pdf')?.addEventListener('click', () => {
-      this.dropdown?.classList.remove('is-open');
-      const note = store.getActiveNote();
-      if (note) exportNoteToPDF(note);
-    });
-
-    document.querySelector('#action-export-md')?.addEventListener('click', () => {
-      this.dropdown?.classList.remove('is-open');
-      const note = store.getActiveNote();
-      if (!note) return;
-      download(`${note.title || 'note'}.md`, `# ${note.title}\n\n${note.content || ''}`, 'text/markdown');
-      eventBus.emit('toast:show', { message: 'Exported .md file', type: 'success' });
-    });
-
-    document.querySelector('#action-export-html')?.addEventListener('click', () => {
-      this.dropdown?.classList.remove('is-open');
-      const note = store.getActiveNote();
-      if (!note) return;
-      download(`${note.title || 'note'}.html`, `<!DOCTYPE html><html><body><h1>${note.title}</h1>${note.content}</body></html>`, 'text/html');
-      eventBus.emit('toast:show', { message: 'Exported .html file', type: 'success' });
-    });
-
-    document.querySelector('#action-export-txt')?.addEventListener('click', () => {
-      this.dropdown?.classList.remove('is-open');
-      const note = store.getActiveNote();
-      if (!note) return;
-      download(`${note.title || 'note'}.txt`, `${note.title}\n\n${note.content || ''}`, 'text/plain');
-      eventBus.emit('toast:show', { message: 'Exported .txt file', type: 'success' });
-    });
-
-    document.querySelector('#action-copy')?.addEventListener('click', () => {
-      this.dropdown?.classList.remove('is-open');
-      const note = store.getActiveNote();
-      if (!note) return;
-      navigator.clipboard.writeText(note.content || '');
-      eventBus.emit('toast:show', { message: 'Copied note content', type: 'success' });
     });
   }
 
