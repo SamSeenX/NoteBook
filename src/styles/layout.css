@@ -83,7 +83,29 @@
 .header-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+}
+
+.btn-new-header {
+  height: 26px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--accent-color);
+  color: var(--text-on-accent);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-new-header:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
 .header-right {

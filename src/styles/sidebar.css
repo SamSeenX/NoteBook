@@ -99,27 +99,6 @@
   width: 175px;
 }
 
-.btn-new-note {
-  width: 30px;
-  height: 30px;
-  min-width: 30px;
-  min-height: 30px;
-  background-color: var(--accent-color);
-  color: var(--text-on-accent);
-  border-radius: var(--radius-xs);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.btn-new-note:hover {
-  background-color: var(--accent-hover);
-  transform: translateY(-1px);
-}
-
 .notes-list-container {
   flex: 1;
   overflow-y: auto;

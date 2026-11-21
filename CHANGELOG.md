@@ -2,6 +2,12 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.4.3] - 2026-11-21
+### Fixed
+- Flash of Unstyled Content (FOUC): Synchronously linked `main.css` in `<head>` so stylesheet loads before HTML rendering starts
+- Initial UI Layout Shifts: Added synchronous inline `<script>` tags in `<head>`, `<body>`, and `<aside>` to restore theme style, dark mode, font, view mode, and sidebar collapse state directly during HTML parse before first paint
+- Relocated "+ New" Note Button: Moved new note creation button into workspace header right beside the "Saved" status indicator, giving search controls full width and leaving top brand uncluttered
+
 ## [1.4.2] - 2026-11-21
 ### Added
 - Unified Search Action Row: Consolidated search, custom sort menu, and "+ New" creation button into a single, compact 30px bar

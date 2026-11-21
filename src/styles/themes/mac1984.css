@@ -86,6 +86,7 @@
 }
 
 [data-style="mac1984"] .btn-primary,
+[data-style="mac1984"] .btn-new-header,
 [data-style="mac1984"] .toolbar-btn,
 [data-style="mac1984"] .segmented-btn {
   border: 1px solid var(--border-color);

@@ -11,7 +11,7 @@ export class SidebarComponent {
     this.backdrop = backdropElement;
     this.listContainer = asideElement.querySelector('#notes-list');
     this.searchInput = asideElement.querySelector('#search-input');
-    this.newNoteBtn = asideElement.querySelector('#new-note-btn');
+    this.newNoteBtn = document.getElementById('new-note-btn');
     this.tagsBar = asideElement.querySelector('#tags-bar');
     this.trashToggleBtn = asideElement.querySelector('#trash-toggle-btn');
     this.trashBanner = asideElement.querySelector('#trash-banner');
