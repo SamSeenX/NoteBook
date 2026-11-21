@@ -2,6 +2,12 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.7.3] - 2026-11-21
+### Added
+- Tag Cloud Modal View: Added dedicated tag cloud icon button on the tags strip opening a floating modal overview of all hashtags
+- Frequency-Aware Cloud Badges: Tag cloud displays all unique hashtags with note count chips in an auto-wrapping view, enabling 1-click filtering
+- Pinned Tag Strip Layout: Separated horizontally scrollable pill strip from the stationary tag cloud button for rapid navigation
+
 ## [1.7.2] - 2026-11-21
 ### Fixed
 - Tag Pill Overflow: Added \`flex-shrink: 0\`, \`min-width: auto\`, and \`white-space: nowrap\` on tag pills, preventing flexbox from squishing pills and causing hashtag text to overflow its borders in retro and monospace themes
