@@ -13,6 +13,7 @@ class Store {
       sortBy: localStorage.getItem('notes_sort_by') || 'updated_desc',
       viewMode: localStorage.getItem('notes_view_mode') || 'split',
       editorFont: localStorage.getItem('notes_font') || 'sans',
+      themeStyle: localStorage.getItem('notes_theme_style') || 'studio',
       theme: localStorage.getItem('notes_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
       isSidebarOpen: localStorage.getItem('notes_sidebar_open') === 'true'
     };
@@ -56,6 +57,10 @@ class Store {
     if (partial.theme !== undefined) {
       localStorage.setItem('notes_theme', partial.theme);
       document.documentElement.setAttribute('data-theme', partial.theme);
+    }
+    if (partial.themeStyle !== undefined) {
+      localStorage.setItem('notes_theme_style', partial.themeStyle);
+      document.documentElement.setAttribute('data-style', partial.themeStyle);
     }
     if (partial.zenMode !== undefined) {
       document.body.classList.toggle('zen-mode', partial.zenMode);

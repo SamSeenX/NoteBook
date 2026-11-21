@@ -146,6 +146,13 @@
   width: 175px;
 }
 
+.style-menu {
+  right: 0;
+  left: auto;
+  top: 42px;
+  width: 170px;
+}
+
 .case-hint {
   font-family: var(--font-mono);
   font-size: 0.72rem;

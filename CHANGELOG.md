@@ -2,6 +2,13 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.4.0] - 2026-11-21
+### Added
+- Independent Theme Style Switcher: Palette button in workspace header allowing 1-click toggling between three design aesthetics: Studio, Folio, and Mac 1984
+- Folio Theme (Grok-inspired): Warm organic paper palette (`#f4efe6`), ivory surfaces, deep forest emerald accents (`#0f6e56`), soft rounded cards, and Outfit + Source Serif 4 typography
+- Mac 1984 Theme: Classic System 1 retro aesthetic with 1-bit crisp lines, 2px hard drop shadows, tactile retro borders, and vintage titlebar pinstripes
+- Scoped Light and Dark modes for every theme style with seamless `localStorage` persistence
+
 ## [1.3.5] - 2026-11-20
 ### Added
 - Persistent edge hamburger button: locked in place at the top-left edge across both open and collapsed states so users can click again in the exact same spot to close

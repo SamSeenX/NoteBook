@@ -1,4 +1,6 @@
 @import './tokens.css';
+@import './themes/folio.css';
+@import './themes/mac1984.css';
 @import './reset.css';
 @import './layout.css';
 @import './sidebar.css';

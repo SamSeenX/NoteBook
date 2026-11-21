@@ -1,0 +1,99 @@
+/* Mac 1984 Theme - Classic System 1 GUI Retro */
+[data-style="mac1984"] {
+  --font-sans: 'Chicago', 'Geneva', ui-monospace, 'Courier New', monospace;
+  --font-serif: 'Courier New', Courier, monospace;
+  --font-mono: 'Courier New', ui-monospace, monospace;
+  --font-editor: var(--font-sans);
+
+  /* Light 1-Bit Palette */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f4f4;
+  --bg-tertiary: #e6e6e6;
+  --bg-elevated: #ffffff;
+  --bg-hover: #dddddd;
+  --border-color: #000000;
+  --border-subtle: #444444;
+
+  --text-primary: #000000;
+  --text-secondary: #222222;
+  --text-muted: #555555;
+  --text-on-accent: #ffffff;
+
+  --accent-color: #000000;
+  --accent-hover: #333333;
+  --accent-subtle: #e6e6e6;
+  --accent-border: #000000;
+  --accent-ring: rgba(0, 0, 0, 0.25);
+
+  --danger-color: #8b0000;
+  --danger-hover: #660000;
+  --danger-subtle: #ffe6e6;
+
+  --radius-xs: 0px;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 3px;
+  --radius-full: 2px;
+
+  --shadow-xs: 1px 1px 0px #000000;
+  --shadow-sm: 2px 2px 0px #000000;
+  --shadow-md: 3px 3px 0px #000000;
+  --shadow-lg: 4px 4px 0px #000000;
+}
+
+[data-style="mac1984"][data-theme="dark"] {
+  /* Dark Inverted 1-Bit Retro Palette */
+  --bg-primary: #000000;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1a1a1a;
+  --bg-elevated: #0a0a0a;
+  --bg-hover: #262626;
+  --border-color: #ffffff;
+  --border-subtle: #aaaaaa;
+
+  --text-primary: #ffffff;
+  --text-secondary: #dddddd;
+  --text-muted: #888888;
+  --text-on-accent: #000000;
+
+  --accent-color: #ffffff;
+  --accent-hover: #cccccc;
+  --accent-subtle: #222222;
+  --accent-border: #ffffff;
+  --accent-ring: rgba(255, 255, 255, 0.3);
+
+  --danger-color: #ff5555;
+  --danger-hover: #ff2222;
+  --danger-subtle: #330000;
+
+  --shadow-xs: 1px 1px 0px #ffffff;
+  --shadow-sm: 2px 2px 0px #ffffff;
+  --shadow-md: 3px 3px 0px #ffffff;
+  --shadow-lg: 4px 4px 0px #ffffff;
+}
+
+/* Classic System 1 Pinstripe Header Accents */
+[data-style="mac1984"] .workspace-header,
+[data-style="mac1984"] .sidebar-header {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--bg-secondary) 0px,
+    var(--bg-secondary) 2px,
+    var(--border-color) 2px,
+    var(--border-color) 3px
+  );
+  border-bottom: 2px solid var(--border-color);
+}
+
+[data-style="mac1984"] .btn-primary,
+[data-style="mac1984"] .toolbar-btn,
+[data-style="mac1984"] .segmented-btn {
+  border: 1px solid var(--border-color);
+}
+
+[data-style="mac1984"] .toolbar-btn.is-active,
+[data-style="mac1984"] .segmented-btn.is-active {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  font-weight: 700;
+}
