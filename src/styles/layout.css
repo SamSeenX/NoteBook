@@ -87,15 +87,18 @@
 }
 
 .btn-new-header {
-  height: 20px;
-  padding: 0 7px;
+  height: 22px;
+  min-height: 22px;
+  min-width: auto;
+  padding: 0 8px;
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  justify-content: center;
+  gap: 4px;
   background-color: var(--accent-color);
   color: var(--text-on-accent);
-  font-size: 0.68rem;
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 500;
   line-height: 1;
   border-radius: var(--radius-xs);
   border: none;

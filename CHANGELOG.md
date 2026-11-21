@@ -2,6 +2,10 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.4.5] - 2026-11-21
+### Fixed
+- Header New Note Button Height: Overrode global button touch target (`min-height: 48px`) by setting `min-height: 22px; min-width: auto;`, preventing the button from stretching to the full height of the workspace header
+
 ## [1.4.4] - 2026-11-21
 ### Fixed
 - Translucent Mac Theme Pinstripes: Softened retro header horizontal lines to a subtle translucent tint (`rgba(..., 0.12-0.14)`), preventing pinstripes from cutting across top status bar text and icons
