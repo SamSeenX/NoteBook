@@ -3,6 +3,7 @@ import { eventBus } from '../../core/event-bus.js';
 import { idb } from '../../utils/idb.js';
 import { renderNoteItem } from './note-item.js';
 import { renderTagsBar } from './tags-bar.js';
+import { setupSortMenu } from './sort-menu.js';
 
 export class SidebarComponent {
   constructor(asideElement, backdropElement) {
@@ -10,7 +11,6 @@ export class SidebarComponent {
     this.backdrop = backdropElement;
     this.listContainer = asideElement.querySelector('#notes-list');
     this.searchInput = asideElement.querySelector('#search-input');
-    this.sortSelect = asideElement.querySelector('#sort-select');
     this.newNoteBtn = asideElement.querySelector('#new-note-btn');
     this.tagsBar = asideElement.querySelector('#tags-bar');
     this.trashToggleBtn = asideElement.querySelector('#trash-toggle-btn');
@@ -22,6 +22,8 @@ export class SidebarComponent {
   }
 
   bindEvents() {
+    setupSortMenu(this.aside);
+
     this.searchInput.addEventListener('input', (e) => {
       store.setState({ searchQuery: e.target.value });
     });
@@ -35,10 +37,6 @@ export class SidebarComponent {
         this.searchInput.blur();
         store.setState({ searchQuery: '', isSidebarOpen: false });
       }
-    });
-
-    this.sortSelect.addEventListener('change', (e) => {
-      store.setState({ sortBy: e.target.value });
     });
 
     if (this.newNoteBtn) {

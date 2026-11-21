@@ -2,6 +2,16 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.4.2] - 2026-11-21
+### Added
+- Unified Search Action Row: Consolidated search, custom sort menu, and "+ New" creation button into a single, compact 30px bar
+- Custom Sort Popover: Replaced the native browser select element with a styled theme-adaptive dropdown menu
+- Extracted sort dropdown state logic into `sort-menu.js` maintaining strict file line caps
+
+### Fixed
+- Relocated the "+ New" button from the sidebar header into the search row as a sleek 30px action button, leaving the brand header completely clean and uncluttered
+- Eliminated the redundant second row in the sidebar controls to reclaim vertical reading height for notes and tags
+
 ## [1.4.1] - 2026-11-21
 ### Fixed
 - Replaced the oversized solid primary export button with an elegant, compact 30px icon button
