@@ -2,6 +2,13 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.4.1] - 2026-11-21
+### Fixed
+- Replaced the oversized solid primary export button with an elegant, compact 30px icon button
+- Compacted the workspace header height (from 54px to 46px) and toolbar height (from 48px to 40px)
+- Unified all top bar action controls (Font, Export, Theme Style, Dark/Light Mode) into matching 30px icon buttons
+- Refined the "+ New" button in the sidebar header to a compact 26px height matching the brand section
+
 ## [1.4.0] - 2026-11-21
 ### Added
 - Independent Theme Style Switcher: Palette button in workspace header allowing 1-click toggling between three design aesthetics: Studio, Folio, and Mac 1984

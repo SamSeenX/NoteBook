@@ -27,7 +27,7 @@
             </div>
             <span class="brand-title">Notes</span>
           </div>
-          <button id="new-note-btn" class="btn-primary" style="height:30px; padding:0 10px; font-size:0.8rem;">+ New</button>
+          <button id="new-note-btn" class="btn-primary" style="height:26px; padding:0 8px; font-size:0.75rem;">+ New</button>
         </div>
 
         <div class="sidebar-controls">
@@ -82,11 +82,10 @@
           </div>
 
           <div class="header-right">
-            <button id="btn-font-cycle" class="toolbar-btn" style="font-weight:700; min-width:32px;" title="Switch Font (Sans/Serif/Mono)">Aa</button>
+            <button id="btn-font-cycle" class="icon-btn-sm" style="font-weight:700; font-size:0.78rem;" title="Switch Font (Sans/Serif/Mono)">Aa</button>
             <div style="position:relative;">
-              <button id="btn-export-menu" class="btn-primary" style="height:30px; padding:0 10px; font-size:0.78rem; gap:5px;" title="Export Note">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
-                <span>Export</span>
+              <button id="btn-export-menu" class="icon-btn-sm" title="Export Note (PDF, Markdown, HTML, Text)" aria-label="Export Note">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               </button>
               <div id="export-dropdown" class="dropdown-menu">
                 <button id="action-export-pdf" class="dropdown-item"><span>Multipage PDF</span><span style="font-size:0.7rem; color:var(--text-muted);">.pdf</span></button>
