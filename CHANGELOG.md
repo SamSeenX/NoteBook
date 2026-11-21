@@ -2,6 +2,10 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.7.0] - 2026-11-21
+### Added
+- H4CKr Theme: Cyberpunk terminal aesthetic with neon phosphor green CRT glow, subtle scanlines, high-contrast monospace typography, and a vintage amber terminal light mode
+
 ## [1.6.0] - 2026-11-21
 ### Added
 - Folder Organization System: Group notes into customizable folders with live note counters in a dedicated sidebar bar
