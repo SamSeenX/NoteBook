@@ -2,6 +2,10 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.7.2] - 2026-11-21
+### Fixed
+- Tag Pill Overflow: Added \`flex-shrink: 0\`, \`min-width: auto\`, and \`white-space: nowrap\` on tag pills, preventing flexbox from squishing pills and causing hashtag text to overflow its borders in retro and monospace themes
+
 ## [1.7.1] - 2026-11-21
 ### Removed
 - Redundant Folder System: Removed folders bar, editor folder dropdown, and folder filtering to streamline the UI around the existing zero-friction inline #tag system

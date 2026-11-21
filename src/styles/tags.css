@@ -2,12 +2,13 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 8px 10px;
+  padding: 6px 10px;
   overflow-x: auto;
   white-space: nowrap;
   border-bottom: 1px solid var(--border-color);
   background-color: var(--bg-secondary);
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .tags-bar::-webkit-scrollbar {
@@ -18,10 +19,15 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   font-weight: 500;
-  padding: 2px 9px;
-  min-height: 26px;
+  line-height: 1;
+  padding: 0 8px;
+  height: 24px;
+  min-height: 24px;
+  min-width: auto;
+  flex-shrink: 0;
+  white-space: nowrap;
   border-radius: var(--radius-full);
   background-color: var(--bg-primary);
   color: var(--text-secondary);
