@@ -16,6 +16,7 @@ import { PreviewComponent } from './components/preview/preview.js';
 
 async function bootstrap() {
   setupErrorBoundary();
+  document.documentElement.setAttribute('data-style', store.getState().themeStyle);
   if (navigator.storage?.persist) navigator.storage.persist().catch(() => {});
   if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
@@ -136,6 +137,26 @@ async function bootstrap() {
 
   document.getElementById('theme-toggle').addEventListener('click', () => {
     store.setState({ theme: store.getState().theme === 'dark' ? 'light' : 'dark' });
+  });
+
+  const styleBtn = document.getElementById('btn-style-menu');
+  const styleDropdown = document.getElementById('style-dropdown');
+  styleBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    styleDropdown?.classList.toggle('is-open');
+  });
+
+  styleDropdown?.addEventListener('click', (e) => {
+    const item = e.target.closest('[data-style-choice]');
+    if (!item) return;
+    store.setState({ themeStyle: item.dataset.styleChoice });
+    styleDropdown.classList.remove('is-open');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (styleDropdown && !styleDropdown.contains(e.target) && !e.target.closest('#btn-style-menu')) {
+      styleDropdown.classList.remove('is-open');
+    }
   });
 
   document.getElementById('exit-zen-btn').addEventListener('click', () => {

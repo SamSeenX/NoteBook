@@ -1,0 +1,72 @@
+/* Folio Theme - Warm Organic Botanical Paper (Grok-inspired) */
+[data-style="folio"] {
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-editor: var(--font-sans);
+
+  /* Light Folio Palette */
+  --bg-primary: #f4efe6;
+  --bg-secondary: #efe8dc;
+  --bg-tertiary: #e5ded1;
+  --bg-elevated: #fffdf8;
+  --bg-hover: #e3dbcc;
+  --border-color: #e4dcd0;
+  --border-subtle: #d6ccbe;
+
+  --text-primary: #1c1915;
+  --text-secondary: #4a4339;
+  --text-muted: #6f675c;
+  --text-on-accent: #f4fbf7;
+
+  --accent-color: #0f6e56;
+  --accent-hover: #0a5240;
+  --accent-subtle: #e3f3ec;
+  --accent-border: #a2decb;
+  --accent-ring: rgba(15, 110, 86, 0.25);
+
+  --danger-color: #9f2d2d;
+  --danger-hover: #822222;
+  --danger-subtle: #faebeb;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  --shadow-xs: 0 1px 2px 0 rgba(28, 25, 21, 0.04);
+  --shadow-sm: 0 2px 4px 0 rgba(28, 25, 21, 0.06);
+  --shadow-md: 0 4px 8px -1px rgba(28, 25, 21, 0.08);
+  --shadow-lg: 0 10px 16px -3px rgba(28, 25, 21, 0.09);
+}
+
+[data-style="folio"][data-theme="dark"] {
+  /* Dark Folio Palette - Deep Pine Charcoal */
+  --bg-primary: #151917;
+  --bg-secondary: #121513;
+  --bg-tertiary: #1c221e;
+  --bg-elevated: #1a201c;
+  --bg-hover: #222a25;
+  --border-color: #27312a;
+  --border-subtle: #36443b;
+
+  --text-primary: #eaf0eb;
+  --text-secondary: #a3b5a7;
+  --text-muted: #6f8073;
+  --text-on-accent: #0f1612;
+
+  --accent-color: #2eb88a;
+  --accent-hover: #3bd4a1;
+  --accent-subtle: #122920;
+  --accent-border: #1b4b39;
+  --accent-ring: rgba(46, 184, 138, 0.3);
+
+  --danger-color: #f87171;
+  --danger-hover: #ef4444;
+  --danger-subtle: #451313;
+
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 14px 20px -4px rgba(0, 0, 0, 0.6);
+}

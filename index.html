@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-font="sans">
+<html lang="en" data-theme="light" data-style="studio" data-font="sans">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="/icon.svg" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Outfit:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
 </head>
 <body data-view="split">
   <div id="app">
@@ -96,6 +96,14 @@
                 <button id="action-copy" class="dropdown-item"><span>Copy to Clipboard</span><span style="font-size:0.7rem; color:var(--text-muted);">Copy</span></button>
               </div>
             </div>
+            <div style="position:relative;">
+              <button id="btn-style-menu" class="icon-btn-sm" title="Change Theme Style (Studio, Folio, Mac 1984)" aria-label="Change Theme Style"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C21.999 6.5 17.5 2 12 2z"/></svg></button>
+              <div id="style-dropdown" class="dropdown-menu style-menu">
+                <button class="dropdown-item" data-style-choice="studio"><div style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#4f46e5;"></span><span>Studio</span></div><span class="case-hint">Modern</span></button>
+                <button class="dropdown-item" data-style-choice="folio"><div style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0f6e56;"></span><span>Folio</span></div><span class="case-hint">Warm</span></button>
+                <button class="dropdown-item" data-style-choice="mac1984"><div style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:8px;height:8px;border:1px solid currentColor;background:transparent;"></span><span>Mac 1984</span></div><span class="case-hint">Retro</span></button>
+              </div>
+            </div>
             <button id="theme-toggle" class="icon-btn-sm" title="Toggle Theme" aria-label="Toggle Theme">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             </button>
@@ -151,31 +159,20 @@
         <div class="content-pane">
           <div id="editor-wrapper" class="editor-wrapper">
             <div class="canvas-inner">
-              <div class="editor-title-container">
-                <input type="text" id="note-title" class="note-title-input" placeholder="Untitled Note" autocomplete="off" />
-                <input type="text" id="note-desc" class="note-desc-input" placeholder="Add a description or summary..." autocomplete="off" />
-              </div>
+              <div class="editor-title-container"><input type="text" id="note-title" class="note-title-input" placeholder="Untitled Note" autocomplete="off" /><input type="text" id="note-desc" class="note-desc-input" placeholder="Add a description or summary..." autocomplete="off" /></div>
               <textarea id="note-body" class="note-body-textarea" placeholder="Start writing here... (Markdown, HTML, or Plain Text)"></textarea>
             </div>
           </div>
 
           <div id="preview-wrapper" class="preview-wrapper">
-            <div class="canvas-inner">
-              <div id="preview-content" class="preview-content"></div>
-            </div>
+            <div class="canvas-inner"><div id="preview-content" class="preview-content"></div></div>
           </div>
         </div>
 
         <!-- Status Bar -->
         <footer class="status-bar">
-          <div class="status-left">
-            <span id="reading-time">0 min read</span>
-            <span id="word-count">0 words</span>
-            <span id="char-count">0 chars</span>
-          </div>
-          <div class="status-right">
-            <span>Offline Ready</span>
-          </div>
+          <div class="status-left"><span id="reading-time">0 min read</span><span id="word-count">0 words</span><span id="char-count">0 chars</span></div>
+          <div class="status-right"><span>Offline Ready</span></div>
         </footer>
       </main>
     </div>

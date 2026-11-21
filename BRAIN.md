@@ -24,6 +24,8 @@
 - **Indigo & Slate Harmony**: Modern indigo brand accents (`#4f46e5` / `#6366f1`) paired with slate surfaces, subtle card borders, and dark canvas (`#0e1015`).
 - **Interactive Checklists**: Real-time toggling of markdown task checkboxes directly within the rendered preview pane.
 - **Visual PDF Page Breaks**: Dashed print divider with a centered uppercase badge indicating exact page breaks for vector multipage PDF generation.
+- **Tri-Theme Architecture**: Decoupled design styles (`data-style="studio" | "folio" | "mac1984"`) from color modes (`data-theme="light" | "dark"`), giving Studio, Folio, and Mac 1984 dedicated, scoped light and dark presentations.
+- **Modular Stylesheets**: Extracted theme-specific tokens into `themes/folio.css` and `themes/mac1984.css` guaranteeing zero file exceeds the strict 200-line limit.
 
 ## 4. Roadmap
 - [x] Architecture planning and scoping
