@@ -45,7 +45,7 @@
 
   --text-primary: #edf4fa;
   --text-secondary: #9cb8cc;
-  --text-muted: #648196;
+  --text-muted: #8aa6bc;
   --text-on-accent: #ffffff;
 
   --accent-color: #29b6f6;
@@ -90,10 +90,23 @@
   box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.85);
 }
 
+[data-style="longhorn"][data-theme="dark"] .sidebar {
+  background: linear-gradient(180deg, #0d141b 0%, #080c10 100%);
+  border-right: 1px solid var(--border-color);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Windows Vista Explorer Toolbar */
 [data-style="longhorn"] .toolbar {
   background: linear-gradient(180deg, #fbfcfe 0%, #edf3f8 100%);
   border-bottom: 1px solid var(--border-subtle);
   box-shadow: inset 0 1px 0 #ffffff;
+}
+
+[data-style="longhorn"][data-theme="dark"] .toolbar {
+  background: linear-gradient(180deg, #18232e 0%, #10171f 100%);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Active Note Aero Glass Selection */
@@ -101,6 +114,20 @@
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(222, 242, 254, 0.75) 49%, rgba(162, 214, 246, 0.8) 50%, rgba(202, 234, 252, 0.9) 100%);
   border: 1px solid #5a96bf;
   box-shadow: inset 0 1px 0 #ffffff, 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-style="longhorn"][data-theme="dark"] .note-item.is-active {
+  background: linear-gradient(180deg, rgba(41, 182, 246, 0.25) 0%, rgba(20, 100, 150, 0.35) 49%, rgba(10, 50, 80, 0.5) 50%, rgba(25, 120, 175, 0.3) 100%), #142230;
+  border: 1px solid #29b6f6;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+[data-style="longhorn"][data-theme="dark"] .note-item.is-active .note-item-title {
+  color: #ffffff;
+}
+
+[data-style="longhorn"][data-theme="dark"] .note-item.is-active .note-item-desc {
+  color: #a8c5d9;
 }
 
 /* Glossy Aero Jelly Buttons */
@@ -120,4 +147,13 @@
   background: 
     linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 49%, rgba(0, 0, 0, 0.05) 50%, rgba(35, 148, 212, 0.35) 100%),
     #2193d4;
+}
+
+[data-style="longhorn"][data-theme="dark"] .btn-new-header,
+[data-style="longhorn"][data-theme="dark"] .btn-primary {
+  background: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.1) 49%, rgba(0, 0, 0, 0.25) 50%, rgba(41, 182, 246, 0.25) 100%),
+    #145b84;
+  border-color: #29b6f6;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 5px rgba(0, 0, 0, 0.35);
 }

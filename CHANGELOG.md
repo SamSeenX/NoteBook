@@ -2,6 +2,11 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.5.2] - 2026-11-21
+### Fixed
+- Longhorn Dark Mode Styling: Added dedicated dark smoked glass styling for the toolbar, sidebar navigation pane, and active note card selection, resolving unstyled white elements in dark mode
+- Contrast Restoration: Enhanced muted text and active card title colors to guarantee crisp readability across all notes in Longhorn dark mode
+
 ## [1.5.1] - 2026-11-21
 ### Enhanced
 - Extreme Resin Theme: Introduced an ambient liquid caustic mesh gradient with multi-color pools, high-saturation frosted glass refraction panels, and floating glass cards
