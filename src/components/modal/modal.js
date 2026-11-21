@@ -12,6 +12,47 @@ export class ModalComponent {
     eventBus.on('modal:confirm', ({ title, message, confirmText = 'Confirm', isDanger = false, onConfirm }) => {
       this.open({ title, message, confirmText, isDanger, onConfirm });
     });
+    eventBus.on('modal:help', () => this.openHelp());
+    document.getElementById('btn-help')?.addEventListener('click', () => this.openHelp());
+  }
+
+  openHelp() {
+    this.close();
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    const isMac = navigator.platform?.toUpperCase().indexOf('MAC') >= 0;
+    const cmdKey = isMac ? '⌘' : 'Ctrl';
+
+    overlay.innerHTML = `
+      <div class="modal-dialog modal-help">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:8px;">
+          <h2 style="font-size:1.05rem; font-weight:700;">Shortcuts & Overview</h2>
+          <button type="button" class="icon-btn-sm" id="modal-close-help" title="Close" aria-label="Close">✕</button>
+        </div>
+        <div class="shortcuts-grid">
+          <div class="shortcut-row"><span>New Note</span><span class="keys"><kbd>${cmdKey}</kbd> + <kbd>N</kbd> or <kbd>Alt</kbd> + <kbd>N</kbd></span></div>
+          <div class="shortcut-row"><span>Toggle Sidebar</span><span class="keys"><kbd>${cmdKey}</kbd> + <kbd>\\</kbd> or <kbd>|</kbd></span></div>
+          <div class="shortcut-row"><span>Search Notes</span><span class="keys"><kbd>${cmdKey}</kbd> + <kbd>K</kbd></span></div>
+          <div class="shortcut-row"><span>Focus Mode</span><span class="keys"><kbd>${cmdKey}</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd></span></div>
+          <div class="shortcut-row"><span>Export PDF</span><span class="keys"><kbd>${cmdKey}</kbd> + <kbd>P</kbd></span></div>
+          <div class="shortcut-row"><span>Help Cheatsheet</span><span class="keys"><kbd>?</kbd> or <kbd>${cmdKey}</kbd> + <kbd>/</kbd></span></div>
+          <div class="shortcut-row"><span>Dismiss / Exit Focus</span><span class="keys"><kbd>Esc</kbd></span></div>
+        </div>
+        <div class="help-info-footer">
+          <p>Offline-First • IndexedDB • 5 Themes (Folio, Resin, Longhorn, Studio, Mac 1984)</p>
+        </div>
+      </div>
+    `;
+
+    const handleKeydown = (e) => { if (e.key === 'Escape') this.close(); };
+    overlay.querySelector('#modal-close-help').addEventListener('click', () => this.close());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) this.close(); });
+    document.addEventListener('keydown', handleKeydown);
+    this.activeOverlay = overlay;
+    this.cleanupKeydown = () => document.removeEventListener('keydown', handleKeydown);
+    this.root.appendChild(overlay);
   }
 
   open({ title, message, confirmText = 'Confirm', isDanger = false, onConfirm }) {

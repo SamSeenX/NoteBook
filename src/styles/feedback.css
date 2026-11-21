@@ -53,3 +53,54 @@
   flex-direction: column;
   gap: var(--space-md);
 }
+
+.modal-help {
+  max-width: 460px;
+  gap: 12px;
+}
+
+.shortcuts-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+.shortcut-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  padding: 4px 8px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-secondary);
+}
+
+.shortcut-row .keys {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+kbd {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.help-info-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 8px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: center;
+}

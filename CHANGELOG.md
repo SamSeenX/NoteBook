@@ -2,6 +2,12 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.5.3] - 2026-11-21
+### Added
+- Capture-Phase Keydown Catching: Configured shortcuts with `{ capture: true }`, `preventDefault()`, and `stopPropagation()` to intercept `Cmd + N` reliably in PWA standalone and browser environments, with `Alt + N` fallback
+- Sidebar Toggle Keybinding: Added `Cmd + \` and `Cmd + |` (or `Ctrl + \` / `|`) to instantly toggle sidebar expansion and collapse
+- Help & Shortcuts Modal: Added dedicated `?` button in the workspace header (also triggered via `?` or `Cmd + /`) opening an interactive modal cheatsheet of all keyboard shortcuts and app capabilities
+
 ## [1.5.2] - 2026-11-21
 ### Fixed
 - Longhorn Dark Mode Styling: Added dedicated dark smoked glass styling for the toolbar, sidebar navigation pane, and active note card selection, resolving unstyled white elements in dark mode
