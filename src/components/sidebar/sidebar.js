@@ -59,6 +59,11 @@ export class SidebarComponent {
     }
 
     this.tagsBar.addEventListener('click', (e) => {
+      const cloudBtn = e.target.closest('#btn-tag-cloud');
+      if (cloudBtn) {
+        eventBus.emit('modal:tagcloud');
+        return;
+      }
       const pill = e.target.closest('[data-tag]');
       if (!pill) return;
       const tag = pill.dataset.tag;

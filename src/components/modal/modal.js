@@ -1,4 +1,6 @@
 import { eventBus } from '../../core/event-bus.js';
+import { store } from '../../core/store.js';
+import { getAllUniqueTags } from '../../utils/tags.js';
 import { escapeHTML } from '../../utils/sanitize.js';
 
 export class ModalComponent {
@@ -13,7 +15,55 @@ export class ModalComponent {
       this.open({ title, message, confirmText, isDanger, onConfirm });
     });
     eventBus.on('modal:help', () => this.openHelp());
+    eventBus.on('modal:tagcloud', () => this.openTagCloud());
     document.getElementById('btn-help')?.addEventListener('click', () => this.openHelp());
+  }
+
+  openTagCloud() {
+    this.close();
+    const { notes, activeTag } = store.getState();
+    const tags = getAllUniqueTags(notes);
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+
+    overlay.innerHTML = `
+      <div class="modal-dialog modal-tag-cloud">
+        <div class="tag-cloud-header">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+            <h2 style="font-size:1.05rem; font-weight:700;">All Tags (${tags.length})</h2>
+          </div>
+          <button type="button" class="icon-btn-sm" id="modal-close-tags" title="Close" aria-label="Close">✕</button>
+        </div>
+        <div class="tag-cloud-body">
+          <button type="button" class="tag-cloud-chip ${!activeTag ? 'is-active' : ''}" data-cloud-tag="">
+            All Notes
+          </button>
+          ${tags.map((t) => `
+            <button type="button" class="tag-cloud-chip ${activeTag === t.tag ? 'is-active' : ''}" data-cloud-tag="${escapeHTML(t.tag)}">
+              #${escapeHTML(t.tag)} <span class="tag-cloud-chip-count">${t.count}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    overlay.querySelector('#modal-close-tags').addEventListener('click', () => this.close());
+    overlay.querySelector('.tag-cloud-body').addEventListener('click', (e) => {
+      const chip = e.target.closest('[data-cloud-tag]');
+      if (!chip) return;
+      const selected = chip.dataset.cloudTag || null;
+      store.setState({ activeTag: selected });
+      this.close();
+    });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) this.close(); });
+    const handleKeydown = (e) => { if (e.key === 'Escape') this.close(); };
+    document.addEventListener('keydown', handleKeydown);
+    this.activeOverlay = overlay;
+    this.cleanupKeydown = () => document.removeEventListener('keydown', handleKeydown);
+    this.root.appendChild(overlay);
   }
 
   openHelp() {
