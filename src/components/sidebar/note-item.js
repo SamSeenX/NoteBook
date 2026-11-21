@@ -56,6 +56,7 @@ export function renderNoteItem(note, isActive, isTrashMode = false) {
       <div class="note-item-footer">
         <div style="display:flex; align-items:center; gap:5px; overflow:hidden;">
           <span>${timeFormatted}</span>
+          ${note.folder ? `<span style="color:var(--accent-color); font-size:0.68rem;">📁 ${escapeHTML(note.folder)}</span>` : ''}
           ${tags.map((t) => `<span style="color:var(--text-muted);">#${escapeHTML(t)}</span>`).join('')}
         </div>
         <div class="note-item-actions">

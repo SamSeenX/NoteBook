@@ -1,6 +1,7 @@
 import { store } from '../../core/store.js';
 import { eventBus } from '../../core/event-bus.js';
 import { idb } from '../../utils/idb.js';
+import { escapeHTML } from '../../utils/sanitize.js';
 import { applyEditorFormat } from '../../utils/formatters.js';
 
 export class EditorComponent {
@@ -8,6 +9,7 @@ export class EditorComponent {
     this.container = container;
     this.titleInput = container.querySelector('#note-title');
     this.descInput = container.querySelector('#note-desc');
+    this.folderSelect = container.querySelector('#note-folder-select');
     this.bodyTextarea = container.querySelector('#note-body');
     this.saveStatus = document.querySelector('#save-status');
     this.statusDot = document.querySelector('#status-dot');
@@ -30,6 +32,17 @@ export class EditorComponent {
     this.titleInput.addEventListener('input', handleInput);
     this.descInput.addEventListener('input', handleInput);
     this.bodyTextarea.addEventListener('input', handleInput);
+
+    if (this.folderSelect) {
+      this.folderSelect.addEventListener('change', async (e) => {
+        const note = store.getActiveNote();
+        if (!note) return;
+        const updated = { ...note, folder: e.target.value || null, updatedAt: Date.now() };
+        await idb.put(updated);
+        const { notes } = store.getState();
+        store.setState({ notes: notes.map((n) => (n.id === updated.id ? updated : n)) });
+      });
+    }
 
     this.bodyTextarea.addEventListener('keydown', (e) => {
       const isCmdOrCtrl = e.metaKey || e.ctrlKey;
@@ -62,6 +75,7 @@ export class EditorComponent {
 
   loadActiveNote() {
     const note = store.getActiveNote();
+    this.updateFolderSelect(note);
     if (!note) {
       this.titleInput.value = '';
       this.descInput.value = '';
@@ -125,5 +139,14 @@ export class EditorComponent {
   applyFormat(format) {
     applyEditorFormat(this.bodyTextarea, format);
     this.saveCurrentNote();
+  }
+
+  updateFolderSelect(note) {
+    if (!this.folderSelect) return;
+    const { folders = [] } = store.getState();
+    const current = note ? (note.folder || '') : '';
+    this.folderSelect.disabled = !note;
+    this.folderSelect.innerHTML = `<option value="">📁 No Folder</option>${folders.map((f) => `<option value="${escapeHTML(f)}" ${f === current ? 'selected' : ''}>📁 ${escapeHTML(f)}</option>`).join('')}`;
+    this.folderSelect.value = current;
   }
 }

@@ -2,6 +2,12 @@
 
 All notable changes to the Notes PWA will be documented here.
 
+## [1.6.0] - 2026-11-21
+### Added
+- Folder Organization System: Group notes into customizable folders with live note counters in a dedicated sidebar bar
+- Folders Management: Filter notes by folder, view Uncategorized notes, and dynamically create new folders
+- Editor Folder Assignment: Quick folder assignment selector inside the editor header to assign or re-organize notes with instant IDB persistence
+
 ## [1.5.3] - 2026-11-21
 ### Added
 - Capture-Phase Keydown Catching: Configured shortcuts with `{ capture: true }`, `preventDefault()`, and `stopPropagation()` to intercept `Cmd + N` reliably in PWA standalone and browser environments, with `Alt + N` fallback

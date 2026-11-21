@@ -48,6 +48,7 @@
           </div>
         </div>
 
+        <div id="folders-bar" class="folders-bar"></div>
         <div id="tags-bar" class="tags-bar"></div>
 
         <div id="trash-banner" class="trash-banner" style="display:none;">
@@ -149,7 +150,7 @@
         <div class="content-pane">
           <div id="editor-wrapper" class="editor-wrapper">
             <div class="canvas-inner">
-              <div class="editor-title-container"><input type="text" id="note-title" class="note-title-input" placeholder="Untitled Note" autocomplete="off" /><input type="text" id="note-desc" class="note-desc-input" placeholder="Add a description or summary..." autocomplete="off" /></div>
+              <div class="editor-title-container"><div style="display:flex; align-items:center; gap:8px;"><input type="text" id="note-title" class="note-title-input" placeholder="Untitled Note" autocomplete="off" /><select id="note-folder-select" class="note-folder-select" title="Assign Folder" aria-label="Assign Folder"></select></div><input type="text" id="note-desc" class="note-desc-input" placeholder="Add a description or summary..." autocomplete="off" /></div>
               <textarea id="note-body" class="note-body-textarea" placeholder="Start writing here... (Markdown, HTML, or Plain Text)"></textarea>
             </div>
           </div>
